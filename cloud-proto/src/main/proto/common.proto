@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package dev.cloud.proto.common;
+
+option java_multiple_files = true;
+option java_package = "dev.cloud.proto.common";
+option java_outer_classname = "CommonProto";
+
+message ProtoUUID {
+  int64 most_significant_bits  = 1;
+  int64 least_significant_bits = 2;
+}
+
+message ProtoTimestamp {
+  int64 epoch_millis = 1;
+}
+
+message ServiceSnapshot {
+  ProtoUUID    unique_id      = 1;
+  string       name           = 2;
+  string       group_name     = 3;
+  string       node_name      = 4;
+  ServiceState state          = 5;
+  Lifecycle    lifecycle      = 6;
+  int32        port           = 7;
+  int32        online_count   = 8;
+  int32        max_players    = 9;
+  string       container_id   = 10;
+}
+
+enum ServiceState {
+  SERVICE_STATE_UNKNOWN  = 0;
+  SERVICE_STATE_PREPARED = 1;
+  SERVICE_STATE_STARTING = 2;
+  SERVICE_STATE_ONLINE   = 3;
+  SERVICE_STATE_STOPPING = 4;
+  SERVICE_STATE_STOPPED  = 5;
+}
+
+enum Lifecycle {
+  LIFECYCLE_DYNAMIC = 0;
+  LIFECYCLE_STATIC  = 1;
+  LIFECYCLE_MANUAL  = 2;
+}
+
+enum ServiceType {
+  SERVICE_TYPE_PAPER       = 0;
+  SERVICE_TYPE_VELOCITY    = 1;
+  SERVICE_TYPE_BUNGEECORD  = 2;
+  SERVICE_TYPE_FABRIC      = 3;
+}
+
+message Empty {}
+
+message Response {
+  bool   success = 1;
+  string message = 2;
+}

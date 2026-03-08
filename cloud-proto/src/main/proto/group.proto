@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package dev.cloud.proto.group;
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "dev.cloud.proto.group";
+option java_outer_classname = "GroupProto";
+
+/**
+ * Full group configuration as transmitted over the network.
+ * Mirrors dev.cloud.api.group.ServiceGroupImpl.
+ */
+message ProtoGroup {
+  string                             name              = 1;
+  dev.cloud.proto.common.ServiceType service_type      = 2;
+  string                             template_name     = 3;
+  int32                              min_online_count  = 4;
+  int32                              max_online_count  = 5;
+  int32                              max_players       = 6;
+  int32                              memory            = 7;
+  dev.cloud.proto.common.Lifecycle   lifecycle         = 8;
+  bool                               maintenance       = 9;
+  string                             jvm_flags         = 10;
+  int32                              start_port        = 11;
+}
+
+message CreateGroupRequest  { ProtoGroup group = 1; }
+message UpdateGroupRequest  { ProtoGroup group = 1; }
+message DeleteGroupRequest  { string name      = 1; }
+message GetGroupRequest     { string name      = 1; }
+message GetGroupResponse    { ProtoGroup group = 1; }
+message ListGroupsResponse  { repeated ProtoGroup groups = 1; }
+
+/**
+ * RPC service for managing service group configurations.
+ * Implemented by the master; called by nodes and plugins.
+ */
+service GroupService {
+
+  /** Creates a new service group. */
+  rpc CreateGroup(CreateGroupRequest) returns (dev.cloud.proto.common.Response);
+
+  /** Updates an existing service group's configuration. */
+  rpc UpdateGroup(UpdateGroupRequest) returns (dev.cloud.proto.common.Response);
+
+  /** Deletes a service group by name. */
+  rpc DeleteGroup(DeleteGroupRequest) returns (dev.cloud.proto.common.Response);
+
+  /** Returns the configuration of a single group. */
+  rpc GetGroup(GetGroupRequest) returns (GetGroupResponse);
+
+  /** Returns all registered groups. */
+  rpc ListGroups(dev.cloud.proto.common.Empty) returns (ListGroupsResponse);
+}
