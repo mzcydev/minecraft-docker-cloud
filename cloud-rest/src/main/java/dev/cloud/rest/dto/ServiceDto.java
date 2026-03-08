@@ -13,4 +13,5 @@ public record ServiceDto(
         int onlinePlayers,
         int maxPlayers,
         String state
-) {}
+) {
+}

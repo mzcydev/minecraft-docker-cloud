@@ -22,11 +22,15 @@ public class TemplateRpcService extends TemplateServiceGrpc.TemplateServiceImplB
 
     private static final Logger log = LoggerFactory.getLogger(TemplateRpcService.class);
 
-    /** Size of each streamed file chunk in bytes (512 KB). */
+    /**
+     * Size of each streamed file chunk in bytes (512 KB).
+     */
     private static final int CHUNK_SIZE = 512 * 1024;
 
     private final TemplateManager templateManager;
-    /** Root directory where templates are stored on the master's filesystem. */
+    /**
+     * Root directory where templates are stored on the master's filesystem.
+     */
     private final Path templatesRoot;
 
     public TemplateRpcService(TemplateManager templateManager, Path templatesRoot) {

@@ -19,28 +19,43 @@ public class GroupCommand implements Command {
     }
 
     @Override
-    public String getName() { return "group"; }
+    public String getName() {
+        return "group";
+    }
 
     @Override
-    public String getDescription() { return "Manage service groups."; }
+    public String getDescription() {
+        return "Manage service groups.";
+    }
 
     @Override
-    public String getUsage() { return "group <create|delete|list|info> [name] [type]"; }
+    public String getUsage() {
+        return "group <create|delete|list|info> [name] [type]";
+    }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (args.length == 0) { sender.sendMessage("Usage: " + getUsage()); return; }
+        if (args.length == 0) {
+            sender.sendMessage("Usage: " + getUsage());
+            return;
+        }
 
         switch (args[0].toLowerCase()) {
             case "list" -> {
                 var groups = groupManager.getAllGroups();
-                if (groups.isEmpty()) { sender.sendMessage("No groups configured."); return; }
+                if (groups.isEmpty()) {
+                    sender.sendMessage("No groups configured.");
+                    return;
+                }
                 groups.forEach(g -> sender.sendMessage(
                         "  » " + g.getName() + " [" + g.getServiceType() + "] min=" +
                                 g.getMinOnlineCount() + " max=" + g.getMaxOnlineCount()));
             }
             case "create" -> {
-                if (args.length < 3) { sender.sendMessage("Usage: group create <name> <type>"); return; }
+                if (args.length < 3) {
+                    sender.sendMessage("Usage: group create <name> <type>");
+                    return;
+                }
                 try {
                     ServiceType type = ServiceType.valueOf(args[2].toUpperCase());
                     ServiceGroup group = new ServiceGroupImpl(
@@ -55,12 +70,18 @@ public class GroupCommand implements Command {
                 }
             }
             case "delete" -> {
-                if (args.length < 2) { sender.sendMessage("Usage: group delete <name>"); return; }
+                if (args.length < 2) {
+                    sender.sendMessage("Usage: group delete <name>");
+                    return;
+                }
                 groupManager.deleteGroup(args[1]);
                 sender.sendMessage("Group '" + args[1] + "' deleted.");
             }
             case "info" -> {
-                if (args.length < 2) { sender.sendMessage("Usage: group info <name>"); return; }
+                if (args.length < 2) {
+                    sender.sendMessage("Usage: group info <name>");
+                    return;
+                }
                 groupManager.getGroup(args[1]).ifPresentOrElse(g -> {
                     sender.sendMessage("Group: " + g.getName());
                     sender.sendMessage("  Type:     " + g.getServiceType());

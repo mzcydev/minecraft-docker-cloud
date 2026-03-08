@@ -17,7 +17,7 @@ public class PaperCloudMessenger {
 
     public PaperCloudMessenger(CloudPluginPlayerManager playerManager, JavaPlugin plugin) {
         this.playerManager = playerManager;
-        this.plugin        = plugin;
+        this.plugin = plugin;
     }
 
     /**

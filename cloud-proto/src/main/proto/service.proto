@@ -12,16 +12,16 @@ option java_outer_classname = "ServiceProto";
  * Sent by the master to a node to start a new service.
  */
 message StartServiceRequest {
-  dev.cloud.proto.common.ProtoUUID unique_id    = 1;
+  dev.cloud.proto.common.ProtoUUID unique_id = 1;
   string                           service_name = 2;
-  string                           group_name   = 3;
+  string                           group_name = 3;
   string                           template_name = 4;
-  int32                            port         = 5;
-  int32                            memory       = 6;  // MB
-  string                           jvm_flags    = 7;
+  int32                            port = 5;
+  int32                            memory = 6;  // MB
+  string                           jvm_flags = 7;
   string                           docker_image = 8;
   string                           start_command = 9;
-  dev.cloud.proto.common.Lifecycle lifecycle    = 10;
+  dev.cloud.proto.common.Lifecycle lifecycle = 10;
   dev.cloud.proto.common.ServiceType service_type = 11;
 }
 
@@ -29,18 +29,18 @@ message StartServiceRequest {
  * Returned by the node after attempting to start a service.
  */
 message StartServiceResponse {
-  bool   success      = 1;
+  bool   success = 1;
   string container_id = 2;
-  string error        = 3;  // empty on success
+  string error = 3;  // empty on success
 }
 
 /**
  * Sent by the master to a node to stop a running service.
  */
 message StopServiceRequest {
-  string service_name  = 1;
-  string container_id  = 2;
-  bool   force         = 3;  // true = kill immediately, false = graceful
+  string service_name = 1;
+  string container_id = 2;
+  bool   force = 3;  // true = kill immediately, false = graceful
 }
 
 /**
@@ -48,18 +48,18 @@ message StopServiceRequest {
  * Used for transitions like STARTING → ONLINE or ONLINE → STOPPED.
  */
 message ServiceStateUpdate {
-  string                             service_name  = 1;
-  dev.cloud.proto.common.ServiceState new_state    = 2;
-  string                             container_id  = 3;
-  int64                              timestamp     = 4;
+  string                             service_name = 1;
+  dev.cloud.proto.common.ServiceState new_state = 2;
+  string                             container_id = 3;
+  int64                              timestamp = 4;
 }
 
 /**
  * Sent by a node to the master to report updated player counts for a service.
  */
 message ServicePlayerUpdate {
-  string service_name  = 1;
-  int32  online_count  = 2;
+  string service_name = 1;
+  int32  online_count = 2;
 }
 
 /**
@@ -67,7 +67,7 @@ message ServicePlayerUpdate {
  * to its template (only relevant for STATIC services).
  */
 message CopyServiceRequest {
-  string service_name  = 1;
+  string service_name = 1;
   string template_name = 2;
 }
 

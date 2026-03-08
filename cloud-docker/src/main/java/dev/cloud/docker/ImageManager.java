@@ -29,7 +29,7 @@ public class ImageManager {
      * Pulls a Docker image from the registry, blocking until the pull completes.
      * If the image already exists locally, the pull is still attempted to check for updates.
      *
-     * @param imageName the full image name including tag (e.g. {@code "eclipse-temurin:21-jre-alpine"})
+     * @param imageName      the full image name including tag (e.g. {@code "eclipse-temurin:21-jre-alpine"})
      * @param timeoutSeconds maximum time to wait for the pull to complete
      * @throws RuntimeException if the pull fails or times out
      */
@@ -72,7 +72,7 @@ public class ImageManager {
     /**
      * Ensures an image is available locally, pulling it if necessary.
      *
-     * @param imageName the image to ensure
+     * @param imageName      the image to ensure
      * @param timeoutSeconds pull timeout in seconds
      */
     public void ensurePresent(String imageName, int timeoutSeconds) {

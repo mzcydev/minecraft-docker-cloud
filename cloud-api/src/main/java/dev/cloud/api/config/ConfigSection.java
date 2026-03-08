@@ -41,8 +41,11 @@ public class ConfigSection {
      */
     public int getInt(String key, int defaultValue) {
         return get(key).map(v -> {
-            try { return Integer.parseInt(v.toString()); }
-            catch (NumberFormatException e) { return defaultValue; }
+            try {
+                return Integer.parseInt(v.toString());
+            } catch (NumberFormatException e) {
+                return defaultValue;
+            }
         }).orElse(defaultValue);
     }
 

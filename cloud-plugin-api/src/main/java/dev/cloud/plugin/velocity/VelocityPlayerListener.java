@@ -5,7 +5,6 @@ import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.connection.PostLoginEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.proxy.ProxyServer;
-import dev.cloud.networking.player.PlayerRpcClient;
 import dev.cloud.plugin.common.CloudPluginEventBus;
 import dev.cloud.plugin.common.CloudPluginPlayerManager;
 import org.slf4j.Logger;
@@ -28,10 +27,10 @@ public class VelocityPlayerListener {
                                   CloudPluginPlayerManager playerManager,
                                   CloudPluginEventBus eventBus,
                                   String proxyServiceName) {
-        this.proxy             = proxy;
-        this.playerManager     = playerManager;
-        this.eventBus          = eventBus;
-        this.proxyServiceName  = proxyServiceName;
+        this.proxy = proxy;
+        this.playerManager = playerManager;
+        this.eventBus = eventBus;
+        this.proxyServiceName = proxyServiceName;
     }
 
     @Subscribe
@@ -50,7 +49,7 @@ public class VelocityPlayerListener {
 
     @Subscribe
     public void onServerSwitch(ServerConnectedEvent event) {
-        var player     = event.getPlayer();
+        var player = event.getPlayer();
         var serverName = event.getServer().getServerInfo().getName();
         log.debug("Player '{}' switched to server '{}'.", player.getUsername(), serverName);
         playerManager.sendToService(player.getUniqueId(), serverName);

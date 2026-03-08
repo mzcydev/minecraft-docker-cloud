@@ -1,10 +1,10 @@
 package dev.cloud.networking;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.ClientInterceptor;
 import dev.cloud.networking.interceptor.AuthInterceptor;
 import dev.cloud.networking.interceptor.LoggingInterceptor;
+import io.grpc.ClientInterceptor;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,7 +75,9 @@ public class GrpcClientBootstrap {
         }
     }
 
-    /** Returns {@code true} if the channel is open and not shut down. */
+    /**
+     * Returns {@code true} if the channel is open and not shut down.
+     */
     public boolean isConnected() {
         return channel != null && !channel.isShutdown();
     }

@@ -1,8 +1,13 @@
 package dev.cloud.networking.group;
 
-import dev.cloud.api.group.*;
 import dev.cloud.api.event.EventBus;
-import dev.cloud.api.event.events.group.*;
+import dev.cloud.api.event.events.group.GroupCreateEvent;
+import dev.cloud.api.event.events.group.GroupDeleteEvent;
+import dev.cloud.api.event.events.group.GroupUpdateEvent;
+import dev.cloud.api.group.GroupManager;
+import dev.cloud.api.group.ServiceGroup;
+import dev.cloud.api.group.ServiceGroupImpl;
+import dev.cloud.api.group.ServiceType;
 import dev.cloud.api.service.ServiceLifecycle;
 import dev.cloud.proto.common.Empty;
 import dev.cloud.proto.common.Response;
@@ -73,7 +78,7 @@ public class GroupRpcService extends GroupServiceGrpc.GroupServiceImplBase {
     public void getGroup(GetGroupRequest request, StreamObserver<GetGroupResponse> observer) {
         groupManager.getGroup(request.getName()).ifPresentOrElse(
                 group -> observer.onNext(GetGroupResponse.newBuilder().setGroup(toProto(group)).build()),
-                ()    -> observer.onNext(GetGroupResponse.getDefaultInstance())
+                () -> observer.onNext(GetGroupResponse.getDefaultInstance())
         );
         observer.onCompleted();
     }
@@ -125,19 +130,19 @@ public class GroupRpcService extends GroupServiceGrpc.GroupServiceImplBase {
 
     private dev.cloud.proto.common.ServiceType toProtoType(ServiceType t) {
         return switch (t) {
-            case PAPER      -> dev.cloud.proto.common.ServiceType.SERVICE_TYPE_PAPER;
-            case VELOCITY   -> dev.cloud.proto.common.ServiceType.SERVICE_TYPE_VELOCITY;
+            case PAPER -> dev.cloud.proto.common.ServiceType.SERVICE_TYPE_PAPER;
+            case VELOCITY -> dev.cloud.proto.common.ServiceType.SERVICE_TYPE_VELOCITY;
             case BUNGEECORD -> dev.cloud.proto.common.ServiceType.SERVICE_TYPE_BUNGEECORD;
-            case FABRIC     -> dev.cloud.proto.common.ServiceType.SERVICE_TYPE_FABRIC;
+            case FABRIC -> dev.cloud.proto.common.ServiceType.SERVICE_TYPE_FABRIC;
         };
     }
 
     private ServiceType fromProtoType(dev.cloud.proto.common.ServiceType t) {
         return switch (t) {
-            case SERVICE_TYPE_VELOCITY   -> ServiceType.VELOCITY;
+            case SERVICE_TYPE_VELOCITY -> ServiceType.VELOCITY;
             case SERVICE_TYPE_BUNGEECORD -> ServiceType.BUNGEECORD;
-            case SERVICE_TYPE_FABRIC     -> ServiceType.FABRIC;
-            default                      -> ServiceType.PAPER;
+            case SERVICE_TYPE_FABRIC -> ServiceType.FABRIC;
+            default -> ServiceType.PAPER;
         };
     }
 
@@ -145,7 +150,7 @@ public class GroupRpcService extends GroupServiceGrpc.GroupServiceImplBase {
         return switch (l) {
             case STATIC -> dev.cloud.proto.common.Lifecycle.LIFECYCLE_STATIC;
             case MANUAL -> dev.cloud.proto.common.Lifecycle.LIFECYCLE_MANUAL;
-            default     -> dev.cloud.proto.common.Lifecycle.LIFECYCLE_DYNAMIC;
+            default -> dev.cloud.proto.common.Lifecycle.LIFECYCLE_DYNAMIC;
         };
     }
 
@@ -153,7 +158,7 @@ public class GroupRpcService extends GroupServiceGrpc.GroupServiceImplBase {
         return switch (l) {
             case LIFECYCLE_STATIC -> ServiceLifecycle.STATIC;
             case LIFECYCLE_MANUAL -> ServiceLifecycle.MANUAL;
-            default               -> ServiceLifecycle.DYNAMIC;
+            default -> ServiceLifecycle.DYNAMIC;
         };
     }
 }

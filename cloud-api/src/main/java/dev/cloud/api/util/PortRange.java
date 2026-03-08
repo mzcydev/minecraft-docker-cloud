@@ -32,6 +32,11 @@ public class PortRange {
         return current.getAndUpdate(port -> port >= max ? min : port + 1);
     }
 
-    public int getMin() { return min; }
-    public int getMax() { return max; }
+    public int getMin() {
+        return min;
+    }
+
+    public int getMax() {
+        return max;
+    }
 }

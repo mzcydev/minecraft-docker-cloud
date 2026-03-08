@@ -18,7 +18,7 @@ public class CloudConnection {
     private final String serviceName;
 
     public CloudConnection(ManagedChannel channel, String serviceName) {
-        this.channel     = channel;
+        this.channel = channel;
         this.serviceName = serviceName;
     }
 

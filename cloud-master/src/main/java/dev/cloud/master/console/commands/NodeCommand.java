@@ -14,25 +14,45 @@ public class NodeCommand implements Command {
         this.nodeRegistry = nodeRegistry;
     }
 
-    @Override public String getName()        { return "node"; }
-    @Override public String getDescription() { return "View connected nodes."; }
-    @Override public String getUsage()       { return "node <list|info> [name]"; }
+    @Override
+    public String getName() {
+        return "node";
+    }
+
+    @Override
+    public String getDescription() {
+        return "View connected nodes.";
+    }
+
+    @Override
+    public String getUsage() {
+        return "node <list|info> [name]";
+    }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (args.length == 0) { sender.sendMessage("Usage: " + getUsage()); return; }
+        if (args.length == 0) {
+            sender.sendMessage("Usage: " + getUsage());
+            return;
+        }
 
         switch (args[0].toLowerCase()) {
             case "list" -> {
                 var nodes = nodeRegistry.allNodes();
-                if (nodes.isEmpty()) { sender.sendMessage("No nodes connected."); return; }
+                if (nodes.isEmpty()) {
+                    sender.sendMessage("No nodes connected.");
+                    return;
+                }
                 nodes.forEach(n -> sender.sendMessage(
                         "  » " + n.getName() + " [" + n.getState() + "] " +
                                 n.getUsedMemoryMb() + "/" + n.getMaxMemoryMb() + "MB " +
                                 n.getRunningServices() + " services"));
             }
             case "info" -> {
-                if (args.length < 2) { sender.sendMessage("Usage: node info <name>"); return; }
+                if (args.length < 2) {
+                    sender.sendMessage("Usage: node info <name>");
+                    return;
+                }
                 nodeRegistry.findNode(args[1]).ifPresentOrElse(n -> {
                     sender.sendMessage("Node: " + n.getName());
                     sender.sendMessage("  Host:     " + n.getHost());

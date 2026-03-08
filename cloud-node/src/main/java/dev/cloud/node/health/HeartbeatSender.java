@@ -32,9 +32,9 @@ public class HeartbeatSender {
 
     public HeartbeatSender(NodeRpcClient rpcClient, String nodeName,
                            NodeServiceTracker tracker, HealthMonitor healthMonitor) {
-        this.rpcClient     = rpcClient;
-        this.nodeName      = nodeName;
-        this.tracker       = tracker;
+        this.rpcClient = rpcClient;
+        this.nodeName = nodeName;
+        this.tracker = tracker;
         this.healthMonitor = healthMonitor;
     }
 
@@ -59,7 +59,7 @@ public class HeartbeatSender {
         try {
             int serviceCount = tracker.runningCount();
             long usedMemoryMb = healthMonitor.usedMemoryMb();
-            int maxMemoryMb   = healthMonitor.maxMemoryMb();
+            int maxMemoryMb = healthMonitor.maxMemoryMb();
 
             rpcClient.sendHeartbeat(nodeName, serviceCount, usedMemoryMb, maxMemoryMb);
             log.debug("Heartbeat sent: {} services, {}MB / {}MB", serviceCount, usedMemoryMb, maxMemoryMb);

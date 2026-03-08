@@ -5,15 +5,23 @@ package dev.cloud.api.node;
  */
 public enum NodeState {
 
-    /** Node is in the process of registering with the master. */
+    /**
+     * Node is in the process of registering with the master.
+     */
     CONNECTING,
 
-    /** Node is fully connected and accepting new services. */
+    /**
+     * Node is fully connected and accepting new services.
+     */
     CONNECTED,
 
-    /** Node is draining: no new services will be started, existing ones run to completion. */
+    /**
+     * Node is draining: no new services will be started, existing ones run to completion.
+     */
     DRAINING,
 
-    /** Node has disconnected from the master, either gracefully or due to a timeout. */
+    /**
+     * Node has disconnected from the master, either gracefully or due to a timeout.
+     */
     DISCONNECTED
 }

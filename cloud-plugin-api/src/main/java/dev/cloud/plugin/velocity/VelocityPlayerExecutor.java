@@ -16,7 +16,7 @@ public class VelocityPlayerExecutor {
     private final CloudPluginPlayerManager playerManager;
 
     public VelocityPlayerExecutor(ProxyServer proxy, CloudPluginPlayerManager playerManager) {
-        this.proxy         = proxy;
+        this.proxy = proxy;
         this.playerManager = playerManager;
     }
 

@@ -10,7 +10,8 @@ import java.util.Optional;
  */
 public final class ServiceFilter {
 
-    private ServiceFilter() {}
+    private ServiceFilter() {
+    }
 
     /**
      * Returns all services that are currently in {@link ServiceState#ONLINE} state.

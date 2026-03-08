@@ -23,8 +23,8 @@ public class NodeTemplateManager {
     public NodeTemplateManager(LocalTemplateStorage storage,
                                TemplateSyncer syncer,
                                TemplateReceiver receiver) {
-        this.storage  = storage;
-        this.syncer   = syncer;
+        this.storage = storage;
+        this.syncer = syncer;
         this.receiver = receiver;
     }
 

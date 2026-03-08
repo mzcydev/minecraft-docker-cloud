@@ -7,13 +7,13 @@ import dev.cloud.master.player.MasterPlayerManager;
 import dev.cloud.master.service.MasterServiceManager;
 import dev.cloud.master.service.ServiceScaler;
 import dev.cloud.master.template.MasterTemplateManager;
+import dev.cloud.networking.GrpcChannelManager;
 import dev.cloud.networking.GrpcServerBootstrap;
 import dev.cloud.networking.group.GroupRpcService;
 import dev.cloud.networking.node.NodeRpcService;
 import dev.cloud.networking.player.PlayerRpcService;
 import dev.cloud.networking.service.ServiceRpcService;
 import dev.cloud.networking.template.TemplateRpcService;
-import dev.cloud.networking.GrpcChannelManager;
 import dev.cloud.template.storage.LocalTemplateStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,11 +49,11 @@ public class MasterBootstrap {
         MasterTemplateManager templateManager = new MasterTemplateManager(templateStorage);
 
         // 4. Core managers
-        MasterNodeManager    nodeManager    = new MasterNodeManager(eventBus, channelManager);
-        MasterGroupManager   groupManager   = new MasterGroupManager(eventBus);
+        MasterNodeManager nodeManager = new MasterNodeManager(eventBus, channelManager);
+        MasterGroupManager groupManager = new MasterGroupManager(eventBus);
         MasterServiceManager serviceManager = new MasterServiceManager(
                 eventBus, nodeManager, channelManager, config);
-        MasterPlayerManager  playerManager  = new MasterPlayerManager(eventBus);
+        MasterPlayerManager playerManager = new MasterPlayerManager(eventBus);
 
         // 5. Service scaler (auto start/stop services per group)
         serviceScaler = new ServiceScaler(groupManager, serviceManager, nodeManager);
@@ -74,7 +74,7 @@ public class MasterBootstrap {
     public void shutdown() {
         log.info("Shutting down master...");
         if (serviceScaler != null) serviceScaler.stop();
-        if (grpcServer    != null) grpcServer.stop();
+        if (grpcServer != null) grpcServer.stop();
         log.info("Master shutdown complete.");
     }
 }

@@ -27,7 +27,7 @@ public record GroupDeployment(
      * Returns {@code true} if an additional service should be started
      * given the current fill percentage across all online services.
      *
-     * @param currentOnline number of services currently online
+     * @param currentOnline  number of services currently online
      * @param avgFillPercent average fill percentage across all online services (0–100)
      */
     public boolean shouldStartAdditional(int currentOnline, int avgFillPercent) {

@@ -1,8 +1,11 @@
 package dev.cloud.api.event.events.node;
+
 import dev.cloud.api.event.CloudEvent;
 import dev.cloud.api.node.CloudNode;
 
-/** Fired when a node disconnects from the master, either gracefully or due to a timeout. */
+/**
+ * Fired when a node disconnects from the master, either gracefully or due to a timeout.
+ */
 public class NodeDisconnectEvent extends CloudEvent {
     private final CloudNode node;
     private final String reason;
@@ -12,6 +15,11 @@ public class NodeDisconnectEvent extends CloudEvent {
         this.reason = reason;
     }
 
-    public CloudNode getNode()  { return node; }
-    public String getReason()   { return reason; }
+    public CloudNode getNode() {
+        return node;
+    }
+
+    public String getReason() {
+        return reason;
+    }
 }

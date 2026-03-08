@@ -5,7 +5,9 @@ import ch.qos.logback.core.AppenderBase;
 import dev.cloud.master.console.ConsoleFormatter;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 
 /**
@@ -19,7 +21,7 @@ public class LogAppender extends AppenderBase<ILoggingEvent> {
 
     @Override
     protected void append(ILoggingEvent event) {
-        String level   = event.getLevel().levelStr;
+        String level = event.getLevel().levelStr;
         String message = event.getFormattedMessage();
         String colored = formatter.format(level, message);
 

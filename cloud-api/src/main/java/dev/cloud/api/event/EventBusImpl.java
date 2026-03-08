@@ -1,7 +1,9 @@
 package dev.cloud.api.event;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -12,7 +14,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EventBusImpl implements EventBus {
 
-    /** Maps event types to an ordered list of registered handler entries. */
+    /**
+     * Maps event types to an ordered list of registered handler entries.
+     */
     private final Map<Class<?>, List<HandlerEntry>> handlers = new ConcurrentHashMap<>();
 
     @Override
@@ -64,5 +68,6 @@ public class EventBusImpl implements EventBus {
             Method method,
             EventPriority priority,
             boolean ignoreCancelled
-    ) {}
+    ) {
+    }
 }

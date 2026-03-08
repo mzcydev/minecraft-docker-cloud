@@ -1,7 +1,10 @@
 package dev.cloud.docker;
 
 import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.model.*;
+import com.github.dockerjava.api.model.Bind;
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.Ports;
+import com.github.dockerjava.api.model.Volume;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +18,12 @@ import java.util.Map;
  */
 public class ContainerBuilder {
 
-    private String image;
-    private String name;
-    private int memoryMb;
     private final List<String> command = new ArrayList<>();
     private final Map<String, String> envVars = new HashMap<>();
     private final Map<Integer, Integer> portBindings = new HashMap<>(); // hostPort -> containerPort
+    private String image;
+    private String name;
+    private int memoryMb;
     private String workingDir = "/server";
     private String volumeName;
 
@@ -116,7 +119,7 @@ public class ContainerBuilder {
      */
     public CreateContainerCmd build(com.github.dockerjava.api.DockerClient client) {
         if (image == null || image.isBlank()) throw new IllegalStateException("Container image must be set.");
-        if (name == null || name.isBlank())  throw new IllegalStateException("Container name must be set.");
+        if (name == null || name.isBlank()) throw new IllegalStateException("Container name must be set.");
 
         CreateContainerCmd cmd = client.createContainerCmd(image)
                 .withName(name)

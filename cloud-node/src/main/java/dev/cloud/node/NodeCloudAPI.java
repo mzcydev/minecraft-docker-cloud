@@ -16,12 +16,20 @@ public class NodeCloudAPI {
     public NodeCloudAPI(NodeServiceManager serviceManager,
                         NodeTemplateManager templateManager,
                         NodeConfig config) {
-        this.serviceManager  = serviceManager;
+        this.serviceManager = serviceManager;
         this.templateManager = templateManager;
-        this.config          = config;
+        this.config = config;
     }
 
-    public NodeServiceManager serviceManager()   { return serviceManager; }
-    public NodeTemplateManager templateManager() { return templateManager; }
-    public NodeConfig config()                   { return config; }
+    public NodeServiceManager serviceManager() {
+        return serviceManager;
+    }
+
+    public NodeTemplateManager templateManager() {
+        return templateManager;
+    }
+
+    public NodeConfig config() {
+        return config;
+    }
 }

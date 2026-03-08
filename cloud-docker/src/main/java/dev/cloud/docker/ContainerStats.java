@@ -109,17 +109,22 @@ public class ContainerStats {
                 if (systemDelta > 0 && cpuDelta > 0) {
                     return ((double) cpuDelta / systemDelta) * cpuCount * 100.0;
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
             return 0.0;
         }
 
-        /** Returns memory usage as a percentage of the limit (0–100). */
+        /**
+         * Returns memory usage as a percentage of the limit (0–100).
+         */
         public double memoryPercent() {
             if (memoryLimitBytes == 0) return 0;
             return ((double) memoryUsageBytes / memoryLimitBytes) * 100.0;
         }
 
-        /** Returns memory usage in megabytes. */
+        /**
+         * Returns memory usage in megabytes.
+         */
         public long memoryUsageMb() {
             return memoryUsageBytes / (1024 * 1024);
         }

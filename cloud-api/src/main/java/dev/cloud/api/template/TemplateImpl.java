@@ -9,7 +9,18 @@ public record TemplateImpl(
         String path
 ) implements Template {
 
-    @Override public String getName()            { return name; }
-    @Override public TemplateStorage getStorage(){ return storage; }
-    @Override public String getPath()            { return path; }
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public TemplateStorage getStorage() {
+        return storage;
+    }
+
+    @Override
+    public String getPath() {
+        return path;
+    }
 }

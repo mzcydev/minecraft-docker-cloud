@@ -60,9 +60,24 @@ public class VelocityCloudPlugin implements CloudPlugin {
         log.info("VelocityCloudPlugin disabled.");
     }
 
-    @Override public String getServiceName() { return CloudPluginBootstrap.requireEnv("SERVICE_NAME"); }
-    @Override public String getMasterHost()  { return CloudPluginBootstrap.requireEnv("MASTER_HOST"); }
-    @Override public int    getMasterPort()  { return CloudPluginBootstrap.envInt("MASTER_PORT", 9090); }
-    @Override public void   onEnable()       { /* handled by @Subscribe */ }
-    @Override public void   onDisable()      { /* handled by @Subscribe */ }
+    @Override
+    public String getServiceName() {
+        return CloudPluginBootstrap.requireEnv("SERVICE_NAME");
+    }
+
+    @Override
+    public String getMasterHost() {
+        return CloudPluginBootstrap.requireEnv("MASTER_HOST");
+    }
+
+    @Override
+    public int getMasterPort() {
+        return CloudPluginBootstrap.envInt("MASTER_PORT", 9090);
+    }
+
+    @Override
+    public void onEnable() { /* handled by @Subscribe */ }
+
+    @Override
+    public void onDisable() { /* handled by @Subscribe */ }
 }

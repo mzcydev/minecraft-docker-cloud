@@ -57,7 +57,9 @@ public class ServiceController {
         api.serviceRegistry().findById(id)
                 .map(mapper::toDto)
                 .ifPresentOrElse(ctx::json,
-                        () -> { throw new NotFoundResponse("Service not found: " + id); });
+                        () -> {
+                            throw new NotFoundResponse("Service not found: " + id);
+                        });
     }
 
     private void startService(Context ctx) {
@@ -72,7 +74,9 @@ public class ServiceController {
                     },
                     () -> ctx.status(503).result("No node available.")
             );
-        }, () -> { throw new NotFoundResponse("Group not found: " + groupName); });
+        }, () -> {
+            throw new NotFoundResponse("Group not found: " + groupName);
+        });
     }
 
     private void stopService(Context ctx) {
@@ -81,6 +85,8 @@ public class ServiceController {
             api.serviceManager().stopService(id);
             ctx.status(204);
             log.info("REST: service '{}' stopped.", service.getName());
-        }, () -> { throw new NotFoundResponse("Service not found: " + id); });
+        }, () -> {
+            throw new NotFoundResponse("Service not found: " + id);
+        });
     }
 }

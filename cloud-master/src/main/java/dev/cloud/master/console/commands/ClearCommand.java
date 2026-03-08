@@ -5,9 +5,20 @@ package dev.cloud.master.console.commands;
  */
 public class ClearCommand implements Command {
 
-    @Override public String getName()        { return "clear"; }
-    @Override public String getDescription() { return "Clears the console."; }
-    @Override public String getUsage()       { return "clear"; }
+    @Override
+    public String getName() {
+        return "clear";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Clears the console.";
+    }
+
+    @Override
+    public String getUsage() {
+        return "clear";
+    }
 
     @Override
     public void execute(CommandSender sender, String[] args) {

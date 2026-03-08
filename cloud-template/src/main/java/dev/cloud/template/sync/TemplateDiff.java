@@ -4,7 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,21 +25,6 @@ import java.util.stream.Collectors;
 public class TemplateDiff {
 
     private static final Logger log = LoggerFactory.getLogger(TemplateDiff.class);
-
-    /**
-     * Result of a diff operation containing the files that need to be transferred or deleted.
-     */
-    public record DiffResult(
-            /** Files present in source but missing or changed in target. */
-            Set<String> toTransfer,
-            /** Files present in target but no longer in source. */
-            Set<String> toDelete
-    ) {
-        /** Returns {@code true} if there are no changes between source and target. */
-        public boolean isEmpty() {
-            return toTransfer.isEmpty() && toDelete.isEmpty();
-        }
-    }
 
     /**
      * Computes the diff between a source and target directory.
@@ -93,6 +81,23 @@ public class TemplateDiff {
             return HexFormat.of().formatHex(digest.digest());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("MD5 not available", e);
+        }
+    }
+
+    /**
+     * Result of a diff operation containing the files that need to be transferred or deleted.
+     */
+    public record DiffResult(
+            /** Files present in source but missing or changed in target. */
+            Set<String> toTransfer,
+            /** Files present in target but no longer in source. */
+            Set<String> toDelete
+    ) {
+        /**
+         * Returns {@code true} if there are no changes between source and target.
+         */
+        public boolean isEmpty() {
+            return toTransfer.isEmpty() && toDelete.isEmpty();
         }
     }
 }

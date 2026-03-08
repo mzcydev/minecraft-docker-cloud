@@ -16,15 +16,15 @@ import dev.cloud.master.template.MasterTemplateManager;
  */
 public class MasterCloudAPI {
 
-    private final MasterGroupManager   groupManager;
-    private final MasterNodeManager    nodeManager;
-    private final NodeRegistry         nodeRegistry;
+    private final MasterGroupManager groupManager;
+    private final MasterNodeManager nodeManager;
+    private final NodeRegistry nodeRegistry;
     private final MasterServiceManager serviceManager;
-    private final ServiceRegistry      serviceRegistry;
-    private final MasterPlayerManager  playerManager;
+    private final ServiceRegistry serviceRegistry;
+    private final MasterPlayerManager playerManager;
     private final GlobalPlayerRegistry playerRegistry;
     private final MasterTemplateManager templateManager;
-    private final MasterConfig         config;
+    private final MasterConfig config;
 
     public MasterCloudAPI(MasterGroupManager groupManager,
                           MasterNodeManager nodeManager,
@@ -35,24 +35,50 @@ public class MasterCloudAPI {
                           GlobalPlayerRegistry playerRegistry,
                           MasterTemplateManager templateManager,
                           MasterConfig config) {
-        this.groupManager    = groupManager;
-        this.nodeManager     = nodeManager;
-        this.nodeRegistry    = nodeRegistry;
-        this.serviceManager  = serviceManager;
+        this.groupManager = groupManager;
+        this.nodeManager = nodeManager;
+        this.nodeRegistry = nodeRegistry;
+        this.serviceManager = serviceManager;
         this.serviceRegistry = serviceRegistry;
-        this.playerManager   = playerManager;
-        this.playerRegistry  = playerRegistry;
+        this.playerManager = playerManager;
+        this.playerRegistry = playerRegistry;
         this.templateManager = templateManager;
-        this.config          = config;
+        this.config = config;
     }
 
-    public MasterGroupManager   groupManager()   { return groupManager; }
-    public MasterNodeManager    nodeManager()    { return nodeManager; }
-    public NodeRegistry         nodeRegistry()   { return nodeRegistry; }
-    public MasterServiceManager serviceManager() { return serviceManager; }
-    public ServiceRegistry      serviceRegistry(){ return serviceRegistry; }
-    public MasterPlayerManager  playerManager()  { return playerManager; }
-    public GlobalPlayerRegistry playerRegistry() { return playerRegistry; }
-    public MasterTemplateManager templateManager(){ return templateManager; }
-    public MasterConfig         config()         { return config; }
+    public MasterGroupManager groupManager() {
+        return groupManager;
+    }
+
+    public MasterNodeManager nodeManager() {
+        return nodeManager;
+    }
+
+    public NodeRegistry nodeRegistry() {
+        return nodeRegistry;
+    }
+
+    public MasterServiceManager serviceManager() {
+        return serviceManager;
+    }
+
+    public ServiceRegistry serviceRegistry() {
+        return serviceRegistry;
+    }
+
+    public MasterPlayerManager playerManager() {
+        return playerManager;
+    }
+
+    public GlobalPlayerRegistry playerRegistry() {
+        return playerRegistry;
+    }
+
+    public MasterTemplateManager templateManager() {
+        return templateManager;
+    }
+
+    public MasterConfig config() {
+        return config;
+    }
 }

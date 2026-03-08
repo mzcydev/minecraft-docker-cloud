@@ -1,6 +1,5 @@
 package dev.cloud.master.template;
 
-import dev.cloud.api.template.Template;
 import dev.cloud.api.template.TemplateVersion;
 import dev.cloud.template.storage.LocalTemplateStorage;
 import dev.cloud.template.sync.ChunkReader;

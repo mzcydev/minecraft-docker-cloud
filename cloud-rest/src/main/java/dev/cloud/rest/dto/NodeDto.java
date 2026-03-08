@@ -11,4 +11,5 @@ public record NodeDto(
         int maxMemoryMb,
         int runningServices,
         int maxServices
-) {}
+) {
+}

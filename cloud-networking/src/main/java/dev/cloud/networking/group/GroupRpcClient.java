@@ -1,7 +1,9 @@
 package dev.cloud.networking.group;
 
 import dev.cloud.proto.common.Empty;
-import dev.cloud.proto.group.*;
+import dev.cloud.proto.group.GetGroupRequest;
+import dev.cloud.proto.group.GroupServiceGrpc;
+import dev.cloud.proto.group.ProtoGroup;
 import io.grpc.ManagedChannel;
 
 import java.util.List;

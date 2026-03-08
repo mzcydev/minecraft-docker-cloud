@@ -20,8 +20,8 @@ public class TemplateReceiver {
     private final LocalTemplateStorage localStorage;
 
     public TemplateReceiver(TemplateRpcClient rpcClient, LocalTemplateStorage localStorage) {
-        this.rpcClient     = rpcClient;
-        this.localStorage  = localStorage;
+        this.rpcClient = rpcClient;
+        this.localStorage = localStorage;
     }
 
     /**

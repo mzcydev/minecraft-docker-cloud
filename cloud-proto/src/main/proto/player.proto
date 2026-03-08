@@ -12,43 +12,43 @@ option java_outer_classname = "PlayerProto";
  * Full player data as tracked by the master.
  */
 message ProtoPlayer {
-  dev.cloud.proto.common.ProtoUUID unique_id       = 1;
-  string                           name            = 2;
+  dev.cloud.proto.common.ProtoUUID unique_id = 1;
+  string                           name = 2;
   string                           current_service = 3;
-  string                           proxy_name      = 4;
-  string                           address         = 5;
+  string                           proxy_name = 4;
+  string                           address = 5;
 }
 
-message PlayerConnectRequest    { ProtoPlayer player  = 1; }
-message PlayerDisconnectRequest { dev.cloud.proto.common.ProtoUUID unique_id = 1; }
+message PlayerConnectRequest    {ProtoPlayer player = 1;}
+message PlayerDisconnectRequest {dev.cloud.proto.common.ProtoUUID unique_id = 1;}
 
 message PlayerSwitchRequest {
-  dev.cloud.proto.common.ProtoUUID unique_id       = 1;
+  dev.cloud.proto.common.ProtoUUID unique_id = 1;
   string                           previous_service = 2;
-  string                           new_service      = 3;
+  string                           new_service = 3;
 }
 
 /** Sent by the master to instruct a proxy to connect a player to a specific service. */
 message SendPlayerRequest {
-  dev.cloud.proto.common.ProtoUUID unique_id    = 1;
+  dev.cloud.proto.common.ProtoUUID unique_id = 1;
   string                           service_name = 2;
 }
 
 /** Sent by the master to instruct a proxy to kick a player. */
 message KickPlayerRequest {
   dev.cloud.proto.common.ProtoUUID unique_id = 1;
-  string                           reason    = 2;
+  string                           reason = 2;
 }
 
 /** Sent by the master to instruct a proxy to send a message to a player. */
 message MessagePlayerRequest {
   dev.cloud.proto.common.ProtoUUID unique_id = 1;
-  string                           message   = 2;
+  string                           message = 2;
 }
 
-message GetPlayerRequest  { dev.cloud.proto.common.ProtoUUID unique_id = 1; }
-message GetPlayerResponse { ProtoPlayer player = 1; }
-message PlayerListResponse { repeated ProtoPlayer players = 1; }
+message GetPlayerRequest  {dev.cloud.proto.common.ProtoUUID unique_id = 1;}
+message GetPlayerResponse {ProtoPlayer player = 1;}
+message PlayerListResponse {repeated ProtoPlayer players = 1;}
 
 /**
  * RPC service for proxies to push player events to the master.

@@ -27,7 +27,8 @@ public class CloudPluginEventBus {
                                                  Consumer<T> handler,
                                                  EventPriority priority) {
         // Wrap the consumer in an anonymous listener object and register it
-        Object listener = new Object() {};
+        Object listener = new Object() {
+        };
         delegate.register(listener);
         // Note: for simplicity plugins use publishToConsumers directly
     }

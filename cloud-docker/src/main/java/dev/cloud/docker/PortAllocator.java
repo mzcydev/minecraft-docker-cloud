@@ -16,7 +16,7 @@ public class PortAllocator {
     private static final Logger log = LoggerFactory.getLogger(PortAllocator.class);
 
     private final NavigableSet<Integer> available = new ConcurrentSkipListSet<>();
-    private final NavigableSet<Integer> reserved  = new ConcurrentSkipListSet<>();
+    private final NavigableSet<Integer> reserved = new ConcurrentSkipListSet<>();
 
     /**
      * Initializes the allocator with a contiguous range of ports.
@@ -35,7 +35,7 @@ public class PortAllocator {
      * Reserves and returns the lowest available port.
      *
      * @return an {@link Optional} containing the reserved port,
-     *         or empty if no ports are available
+     * or empty if no ports are available
      */
     public Optional<Integer> acquire() {
         Integer port = available.pollFirst();
@@ -62,12 +62,16 @@ public class PortAllocator {
         }
     }
 
-    /** Returns the number of currently available ports. */
+    /**
+     * Returns the number of currently available ports.
+     */
     public int availableCount() {
         return available.size();
     }
 
-    /** Returns the number of currently reserved ports. */
+    /**
+     * Returns the number of currently reserved ports.
+     */
     public int reservedCount() {
         return reserved.size();
     }

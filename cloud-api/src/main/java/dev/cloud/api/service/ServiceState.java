@@ -5,21 +5,33 @@ package dev.cloud.api.service;
  */
 public enum ServiceState {
 
-    /** Template has been copied, container has not been started yet. */
+    /**
+     * Template has been copied, container has not been started yet.
+     */
     PREPARED,
 
-    /** Container is running, Minecraft server is booting. */
+    /**
+     * Container is running, Minecraft server is booting.
+     */
     STARTING,
 
-    /** Server has reported itself as ready to accept players. */
+    /**
+     * Server has reported itself as ready to accept players.
+     */
     ONLINE,
 
-    /** Shutdown has been initiated, server is in the process of stopping. */
+    /**
+     * Shutdown has been initiated, server is in the process of stopping.
+     */
     STOPPING,
 
-    /** Container has been stopped and removed. */
+    /**
+     * Container has been stopped and removed.
+     */
     STOPPED,
 
-    /** State cannot be determined, e.g. after a node disconnect. */
+    /**
+     * State cannot be determined, e.g. after a node disconnect.
+     */
     UNKNOWN
 }

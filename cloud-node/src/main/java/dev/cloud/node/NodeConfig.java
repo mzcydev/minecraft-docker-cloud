@@ -46,11 +46,11 @@ public record NodeConfig(
         Yaml yaml = new Yaml();
         try (InputStream in = Files.newInputStream(CONFIG_PATH)) {
             Map<String, Object> root = yaml.load(in);
-            Map<String, Object> master   = section(root, "master");
-            Map<String, Object> docker   = section(root, "docker");
-            Map<String, Object> ports    = section(root, "ports");
+            Map<String, Object> master = section(root, "master");
+            Map<String, Object> docker = section(root, "docker");
+            Map<String, Object> ports = section(root, "ports");
             Map<String, Object> resource = section(root, "resources");
-            Map<String, Object> dirs     = section(root, "directories");
+            Map<String, Object> dirs = section(root, "directories");
 
             return new NodeConfig(
                     str(root, "name"),

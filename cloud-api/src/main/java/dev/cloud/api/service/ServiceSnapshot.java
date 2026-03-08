@@ -23,14 +23,45 @@ public record ServiceSnapshot(
         String containerId
 ) implements CloudService {
 
-    @Override public UUID getUniqueId()      { return uniqueId; }
-    @Override public String getName()        { return name; }
-    @Override public int getPort()           { return port; }
-    @Override public int getOnlineCount()    { return onlineCount; }
-    @Override public int getMaxPlayers()     { return maxPlayers; }
-    @Override public String getContainerId() { return containerId; }
-    @Override public ServiceState getState() { return state; }
-    @Override public ServiceLifecycle getLifecycle() { return lifecycle; }
+    @Override
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getPort() {
+        return port;
+    }
+
+    @Override
+    public int getOnlineCount() {
+        return onlineCount;
+    }
+
+    @Override
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    @Override
+    public String getContainerId() {
+        return containerId;
+    }
+
+    @Override
+    public ServiceState getState() {
+        return state;
+    }
+
+    @Override
+    public ServiceLifecycle getLifecycle() {
+        return lifecycle;
+    }
 
     /**
      * @throws UnsupportedOperationException always — use {@link #groupName()} on snapshots

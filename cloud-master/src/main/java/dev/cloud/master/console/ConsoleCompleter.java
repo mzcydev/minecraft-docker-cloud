@@ -35,15 +35,16 @@ public class ConsoleCompleter implements Completer {
             String cmdName = words.get(0).toLowerCase();
             commandManager.find(cmdName).ifPresent(cmd -> {
                 switch (cmdName) {
-                    case "group"   -> List.of("create", "delete", "list", "info")
+                    case "group" -> List.of("create", "delete", "list", "info")
                             .stream().map(Candidate::new).forEach(candidates::add);
                     case "service" -> List.of("list", "stop", "info")
                             .stream().map(Candidate::new).forEach(candidates::add);
-                    case "node"    -> List.of("list", "info")
+                    case "node" -> List.of("list", "info")
                             .stream().map(Candidate::new).forEach(candidates::add);
-                    case "player"  -> List.of("list", "info")
+                    case "player" -> List.of("list", "info")
                             .stream().map(Candidate::new).forEach(candidates::add);
-                    default -> {}
+                    default -> {
+                    }
                 }
             });
         }

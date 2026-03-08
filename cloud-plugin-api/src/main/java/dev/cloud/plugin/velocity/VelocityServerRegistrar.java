@@ -23,7 +23,7 @@ public class VelocityServerRegistrar {
     private final CloudPluginServiceManager serviceManager;
 
     public VelocityServerRegistrar(ProxyServer proxy, CloudPluginServiceManager serviceManager) {
-        this.proxy          = proxy;
+        this.proxy = proxy;
         this.serviceManager = serviceManager;
     }
 

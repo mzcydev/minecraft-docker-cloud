@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class GlobalPlayerRegistry {
 
-    private final Map<UUID, CloudPlayerImpl>   byUuid = new ConcurrentHashMap<>();
+    private final Map<UUID, CloudPlayerImpl> byUuid = new ConcurrentHashMap<>();
     private final Map<String, CloudPlayerImpl> byName = new ConcurrentHashMap<>();
 
     public void add(CloudPlayerImpl player) {

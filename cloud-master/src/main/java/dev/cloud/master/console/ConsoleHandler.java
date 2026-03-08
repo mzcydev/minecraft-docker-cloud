@@ -2,10 +2,10 @@ package dev.cloud.master.console;
 
 import dev.cloud.master.console.commands.CommandManager;
 import dev.cloud.master.console.commands.CommandSender;
+import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
-import org.jline.reader.EndOfFileException;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 import org.slf4j.Logger;

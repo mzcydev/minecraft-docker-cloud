@@ -14,7 +14,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ServiceFactory {
 
-    /** Per-group counter for sequential service numbering. */
+    /**
+     * Per-group counter for sequential service numbering.
+     */
     private final Map<String, AtomicInteger> counters = new ConcurrentHashMap<>();
 
     /**

@@ -62,7 +62,9 @@ public class PlayerCache {
         return Collections.unmodifiableCollection(byUuid.values());
     }
 
-    /** Returns the number of players currently in the cache. */
+    /**
+     * Returns the number of players currently in the cache.
+     */
     public int size() {
         return byUuid.size();
     }

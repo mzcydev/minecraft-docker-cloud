@@ -1,8 +1,8 @@
 package dev.cloud.master.scheduler;
 
+import dev.cloud.master.node.MasterNodeManager;
 import dev.cloud.master.service.MasterServiceManager;
 import dev.cloud.master.service.ServiceQueue;
-import dev.cloud.master.node.MasterNodeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +21,15 @@ public class ServiceScheduler implements SchedulerTask {
     public ServiceScheduler(ServiceQueue queue,
                             MasterServiceManager serviceManager,
                             MasterNodeManager nodeManager) {
-        this.queue          = queue;
+        this.queue = queue;
         this.serviceManager = serviceManager;
-        this.nodeManager    = nodeManager;
+        this.nodeManager = nodeManager;
     }
 
     @Override
-    public String getTaskName() { return "service-scheduler"; }
+    public String getTaskName() {
+        return "service-scheduler";
+    }
 
     @Override
     public void run() {

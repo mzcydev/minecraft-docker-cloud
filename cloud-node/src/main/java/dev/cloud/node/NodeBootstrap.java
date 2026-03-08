@@ -7,8 +7,8 @@ import dev.cloud.networking.node.NodeRpcClient;
 import dev.cloud.networking.service.ServiceRpcClient;
 import dev.cloud.networking.template.TemplateRpcClient;
 import dev.cloud.node.docker.NodeDockerService;
-import dev.cloud.node.health.HeartbeatSender;
 import dev.cloud.node.health.HealthMonitor;
+import dev.cloud.node.health.HeartbeatSender;
 import dev.cloud.node.logging.NodeLogHandler;
 import dev.cloud.node.service.NodeServiceFactory;
 import dev.cloud.node.service.NodeServiceManager;
@@ -53,12 +53,12 @@ public class NodeBootstrap {
         }
 
         ContainerManager containerManager = new ContainerManager(docker);
-        VolumeManager volumeManager       = new VolumeManager(docker);
-        NetworkManager networkManager     = new NetworkManager(docker);
-        ImageManager imageManager         = new ImageManager(docker);
-        PortAllocator portAllocator       = new PortAllocator(config.portRangeFrom(), config.portRangeTo());
-        ContainerLogStreamer logStreamer   = new ContainerLogStreamer(docker);
-        NodeLogHandler logHandler         = new NodeLogHandler();
+        VolumeManager volumeManager = new VolumeManager(docker);
+        NetworkManager networkManager = new NetworkManager(docker);
+        ImageManager imageManager = new ImageManager(docker);
+        PortAllocator portAllocator = new PortAllocator(config.portRangeFrom(), config.portRangeTo());
+        ContainerLogStreamer logStreamer = new ContainerLogStreamer(docker);
+        NodeLogHandler logHandler = new NodeLogHandler();
 
         networkManager.ensureNetworkExists();
 
@@ -118,11 +118,14 @@ public class NodeBootstrap {
         log.info("Shutting down node '{}'...", config.nodeName());
 
         if (heartbeatSender != null) heartbeatSender.stop();
-        if (serviceManager  != null) serviceManager.stopAll();
+        if (serviceManager != null) serviceManager.stopAll();
 
         if (nodeRpcClient != null) {
-            try { nodeRpcClient.notifyShutdown(config.nodeName()); }
-            catch (Exception e) { log.warn("Failed to notify master: {}", e.getMessage()); }
+            try {
+                nodeRpcClient.notifyShutdown(config.nodeName());
+            } catch (Exception e) {
+                log.warn("Failed to notify master: {}", e.getMessage());
+            }
         }
 
         if (channel != null && !channel.isShutdown()) channel.shutdownNow();

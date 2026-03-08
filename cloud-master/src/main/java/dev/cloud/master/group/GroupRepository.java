@@ -1,9 +1,9 @@
 package dev.cloud.master.group;
 
-import dev.cloud.api.group.ServiceGroup;
-import dev.cloud.api.group.ServiceGroupImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import dev.cloud.api.group.ServiceGroup;
+import dev.cloud.api.group.ServiceGroupImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +27,11 @@ public class GroupRepository {
 
     public GroupRepository(Path groupDir) {
         this.groupDir = groupDir;
-        try { Files.createDirectories(groupDir); }
-        catch (IOException e) { throw new RuntimeException("Cannot create group dir", e); }
+        try {
+            Files.createDirectories(groupDir);
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot create group dir", e);
+        }
     }
 
     /**

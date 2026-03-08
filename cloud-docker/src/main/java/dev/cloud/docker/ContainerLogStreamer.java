@@ -28,7 +28,7 @@ public class ContainerLogStreamer {
      * Each line is passed to the provided consumer as a plain string.
      * The stream runs in a background thread until the container stops or {@link Closeable#close()} is called.
      *
-     * @param containerId the container whose logs to stream
+     * @param containerId  the container whose logs to stream
      * @param lineConsumer a callback that receives each log line
      * @return a {@link Closeable} that stops the log stream when closed
      */

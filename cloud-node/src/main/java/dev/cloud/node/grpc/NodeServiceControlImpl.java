@@ -1,11 +1,11 @@
 package dev.cloud.node.grpc;
 
 import dev.cloud.node.NodeCloudAPI;
+import dev.cloud.proto.common.Response;
+import dev.cloud.proto.service.CopyServiceRequest;
 import dev.cloud.proto.service.ServiceControlGrpc;
 import dev.cloud.proto.service.StartServiceRequest;
 import dev.cloud.proto.service.StopServiceRequest;
-import dev.cloud.proto.service.CopyServiceRequest;
-import dev.cloud.proto.common.Response;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class NodeServiceControlImpl extends ServiceControlGrpc.ServiceControlImp
     public void startService(StartServiceRequest request,
                              StreamObserver<Response> responseObserver) {
         String serviceName = request.getServiceName();
-        String groupName   = request.getGroupName();
+        String groupName = request.getGroupName();
         log.info("Received startService: name={} group={}", serviceName, groupName);
 
         try {

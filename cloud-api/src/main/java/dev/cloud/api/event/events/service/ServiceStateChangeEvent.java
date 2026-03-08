@@ -1,9 +1,12 @@
 package dev.cloud.api.event.events.service;
+
 import dev.cloud.api.event.CloudEvent;
 import dev.cloud.api.service.CloudService;
 import dev.cloud.api.service.ServiceState;
 
-/** Fired whenever a service transitions from one {@link ServiceState} to another. */
+/**
+ * Fired whenever a service transitions from one {@link ServiceState} to another.
+ */
 public class ServiceStateChangeEvent extends CloudEvent {
     private final CloudService service;
     private final ServiceState oldState;
@@ -15,7 +18,15 @@ public class ServiceStateChangeEvent extends CloudEvent {
         this.newState = newState;
     }
 
-    public CloudService getService() { return service; }
-    public ServiceState getOldState() { return oldState; }
-    public ServiceState getNewState() { return newState; }
+    public CloudService getService() {
+        return service;
+    }
+
+    public ServiceState getOldState() {
+        return oldState;
+    }
+
+    public ServiceState getNewState() {
+        return newState;
+    }
 }

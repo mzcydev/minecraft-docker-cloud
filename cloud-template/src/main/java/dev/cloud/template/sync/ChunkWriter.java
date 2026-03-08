@@ -20,7 +20,9 @@ public class ChunkWriter {
 
     private final Path outputDir;
 
-    /** Per-file chunk buffer: relative path → (chunkIndex → data). */
+    /**
+     * Per-file chunk buffer: relative path → (chunkIndex → data).
+     */
     private final Map<String, TreeMap<Integer, byte[]>> buffers = new java.util.concurrent.ConcurrentHashMap<>();
 
     /**

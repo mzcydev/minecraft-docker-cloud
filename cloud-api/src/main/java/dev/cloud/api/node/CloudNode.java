@@ -5,33 +5,51 @@ package dev.cloud.api.node;
  */
 public interface CloudNode {
 
-    /** Returns the unique name of this node (e.g. {@code "Node-1"}). */
+    /**
+     * Returns the unique name of this node (e.g. {@code "Node-1"}).
+     */
     String getName();
 
-    /** Returns the hostname or IP address of this node. */
+    /**
+     * Returns the hostname or IP address of this node.
+     */
     String getHost();
 
-    /** Returns the gRPC port this node listens on. */
+    /**
+     * Returns the gRPC port this node listens on.
+     */
     int getPort();
 
-    /** Returns the current operational state of this node. */
+    /**
+     * Returns the current operational state of this node.
+     */
     NodeState getState();
 
-    /** Returns the total available RAM of this node in megabytes. */
+    /**
+     * Returns the total available RAM of this node in megabytes.
+     */
     int getTotalMemory();
 
-    /** Returns the amount of RAM currently allocated to running services in megabytes. */
+    /**
+     * Returns the amount of RAM currently allocated to running services in megabytes.
+     */
     int getUsedMemory();
 
-    /** Returns the remaining allocatable RAM in megabytes. */
+    /**
+     * Returns the remaining allocatable RAM in megabytes.
+     */
     default int getAvailableMemory() {
         return getTotalMemory() - getUsedMemory();
     }
 
-    /** Returns the current CPU usage of this node as a percentage (0–100). */
+    /**
+     * Returns the current CPU usage of this node as a percentage (0–100).
+     */
     double getCpuUsage();
 
-    /** Returns the number of services currently running on this node. */
+    /**
+     * Returns the number of services currently running on this node.
+     */
     int getServiceCount();
 
     /**

@@ -35,7 +35,7 @@ public class ImageResolver {
                 + " -XX:+DisableExplicitGC -XX:G1HeapWastePercent=5";
 
         return switch (type) {
-            case PAPER  -> base + g1gc + " -Dfile.encoding=UTF-8 -Dcom.mojang.eula.agree=true";
+            case PAPER -> base + g1gc + " -Dfile.encoding=UTF-8 -Dcom.mojang.eula.agree=true";
             case VELOCITY, BUNGEECORD -> base + " -XX:+UseG1GC -Dfile.encoding=UTF-8";
             case FABRIC -> base + g1gc;
         };

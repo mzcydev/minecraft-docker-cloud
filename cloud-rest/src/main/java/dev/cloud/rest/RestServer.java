@@ -1,7 +1,10 @@
 package dev.cloud.rest;
 
 import dev.cloud.master.MasterCloudAPI;
-import dev.cloud.rest.controller.*;
+import dev.cloud.rest.controller.GroupController;
+import dev.cloud.rest.controller.NodeController;
+import dev.cloud.rest.controller.PlayerController;
+import dev.cloud.rest.controller.ServiceController;
 import dev.cloud.rest.middleware.AuthMiddleware;
 import dev.cloud.rest.middleware.CorsMiddleware;
 import io.javalin.Javalin;
@@ -22,7 +25,7 @@ public class RestServer {
     private Javalin app;
 
     public RestServer(RestConfig config, MasterCloudAPI cloudAPI) {
-        this.config   = config;
+        this.config = config;
         this.cloudAPI = cloudAPI;
     }
 
@@ -30,10 +33,10 @@ public class RestServer {
      * Starts the REST server and registers all routes.
      */
     public void start() {
-        GroupController   groupController   = new GroupController(cloudAPI);
-        NodeController    nodeController    = new NodeController(cloudAPI);
+        GroupController groupController = new GroupController(cloudAPI);
+        NodeController nodeController = new NodeController(cloudAPI);
         ServiceController serviceController = new ServiceController(cloudAPI);
-        PlayerController  playerController  = new PlayerController(cloudAPI);
+        PlayerController playerController = new PlayerController(cloudAPI);
 
         app = Javalin.create(cfg -> {
             cfg.showJavalinBanner = false;
@@ -77,5 +80,6 @@ public class RestServer {
     /**
      * Simple error response body.
      */
-    public record ErrorResponse(String message) {}
+    public record ErrorResponse(String message) {
+    }
 }

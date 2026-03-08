@@ -7,4 +7,5 @@ public record PlayerDto(
         String uuid,
         String name,
         String currentService
-) {}
+) {
+}

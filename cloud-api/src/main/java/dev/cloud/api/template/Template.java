@@ -6,10 +6,14 @@ package dev.cloud.api.template;
  */
 public interface Template {
 
-    /** Returns the unique name of this template (e.g. {@code "lobby"}, {@code "bedwars"}). */
+    /**
+     * Returns the unique name of this template (e.g. {@code "lobby"}, {@code "bedwars"}).
+     */
     String getName();
 
-    /** Returns the backend storage type this template is stored in. */
+    /**
+     * Returns the backend storage type this template is stored in.
+     */
     TemplateStorage getStorage();
 
     /**

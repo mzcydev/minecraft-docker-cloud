@@ -16,11 +16,11 @@ import java.util.Optional;
  */
 public class NetworkManager {
 
-    private static final Logger log = LoggerFactory.getLogger(NetworkManager.class);
-
-    /** Name of the Docker bridge network used by all cloud services. */
+    /**
+     * Name of the Docker bridge network used by all cloud services.
+     */
     public static final String CLOUD_NETWORK = "minecraft-cloud";
-
+    private static final Logger log = LoggerFactory.getLogger(NetworkManager.class);
     private final DockerClient docker;
 
     public NetworkManager(DockerClient docker) {

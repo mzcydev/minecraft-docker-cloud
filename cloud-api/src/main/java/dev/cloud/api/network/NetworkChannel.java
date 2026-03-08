@@ -6,15 +6,23 @@ package dev.cloud.api.network;
  */
 public interface NetworkChannel {
 
-    /** Returns the name of the remote component (e.g. node name). */
+    /**
+     * Returns the name of the remote component (e.g. node name).
+     */
     String getRemoteName();
 
-    /** Returns the type of the remote component. */
+    /**
+     * Returns the type of the remote component.
+     */
     NetworkComponent getRemoteType();
 
-    /** Returns {@code true} if the channel is currently open and usable. */
+    /**
+     * Returns {@code true} if the channel is currently open and usable.
+     */
     boolean isOpen();
 
-    /** Closes this channel and releases all associated resources. */
+    /**
+     * Closes this channel and releases all associated resources.
+     */
     void close();
 }

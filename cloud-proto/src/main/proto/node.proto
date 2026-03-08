@@ -9,34 +9,34 @@ option java_package = "dev.cloud.proto.node";
 option java_outer_classname = "NodeProto";
 
 message RegisterNodeRequest {
-  string node_name      = 1;
-  string host           = 2;
-  int32  port           = 3;
-  int32  total_memory   = 4;
-  int32  cpu_cores      = 5;
-  string os             = 6;
-  string java_version   = 7;
+  string node_name = 1;
+  string host = 2;
+  int32  port = 3;
+  int32  total_memory = 4;
+  int32  cpu_cores = 5;
+  string os = 6;
+  string java_version = 7;
   string docker_version = 8;
-  string auth_token     = 9;
+  string auth_token = 9;
 }
 
 message RegisterNodeResponse {
-  bool   accepted      = 1;
+  bool   accepted = 1;
   string reject_reason = 2;
 }
 
 message HeartbeatRequest {
-  string node_name     = 1;
-  int32  used_memory   = 2;
-  int32  total_memory  = 3;
-  double cpu_usage     = 4;
+  string node_name = 1;
+  int32  used_memory = 2;
+  int32  total_memory = 3;
+  double cpu_usage = 4;
   int32  service_count = 5;
-  int64  timestamp     = 6;
+  int64  timestamp = 6;
 }
 
 message HeartbeatResponse {
   bool acknowledged = 1;
-  bool drain        = 2;
+  bool drain = 2;
 }
 
 message DrainNodeRequest {
@@ -45,7 +45,7 @@ message DrainNodeRequest {
 
 message ShutdownNotification {
   string node_name = 1;
-  string reason    = 2;
+  string reason = 2;
 }
 
 service NodeService {

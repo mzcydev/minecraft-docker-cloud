@@ -51,6 +51,8 @@ public class PlayerController {
                         p.getName(),
                         p.getCurrentService()))
                 .ifPresentOrElse(ctx::json,
-                        () -> { throw new NotFoundResponse("Player not found: " + name); });
+                        () -> {
+                            throw new NotFoundResponse("Player not found: " + name);
+                        });
     }
 }

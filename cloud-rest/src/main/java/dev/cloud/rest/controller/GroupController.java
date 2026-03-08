@@ -57,7 +57,9 @@ public class GroupController {
         api.groupManager().getGroup(name)
                 .map(mapper::toDto)
                 .ifPresentOrElse(ctx::json,
-                        () -> { throw new NotFoundResponse("Group not found: " + name); });
+                        () -> {
+                            throw new NotFoundResponse("Group not found: " + name);
+                        });
     }
 
     private void createGroup(Context ctx) {

@@ -31,10 +31,14 @@ public class MasterServiceManager {
 
     private static final Logger log = LoggerFactory.getLogger(MasterServiceManager.class);
 
-    /** serviceId → service */
+    /**
+     * serviceId → service
+     */
     private final Map<String, CloudServiceImpl> services = new ConcurrentHashMap<>();
 
-    /** groupName → counter for naming (Lobby-1, Lobby-2, ...) */
+    /**
+     * groupName → counter for naming (Lobby-1, Lobby-2, ...)
+     */
     private final Map<String, AtomicInteger> counters = new ConcurrentHashMap<>();
 
     private final EventBus eventBus;
@@ -46,10 +50,10 @@ public class MasterServiceManager {
                                 MasterNodeManager nodeManager,
                                 GrpcChannelManager channelManager,
                                 MasterConfig config) {
-        this.eventBus       = eventBus;
-        this.nodeManager    = nodeManager;
+        this.eventBus = eventBus;
+        this.nodeManager = nodeManager;
         this.channelManager = channelManager;
-        this.config         = config;
+        this.config = config;
     }
 
     /**

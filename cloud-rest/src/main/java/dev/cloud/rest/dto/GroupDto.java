@@ -13,4 +13,5 @@ public record GroupDto(
         int maxServices,
         String jvmFlags,
         boolean isStatic
-) {}
+) {
+}

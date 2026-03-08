@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Manages the full lifecycle of Docker containers for cloud services.
@@ -18,7 +17,9 @@ public class ContainerManager {
 
     private static final Logger log = LoggerFactory.getLogger(ContainerManager.class);
 
-    /** Seconds to wait for a graceful stop before killing the container. */
+    /**
+     * Seconds to wait for a graceful stop before killing the container.
+     */
     private static final int STOP_TIMEOUT_SECONDS = 10;
 
     private final DockerClient docker;

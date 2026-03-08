@@ -10,9 +10,9 @@ public class CloudPlayerImpl implements CloudPlayer {
 
     private final UUID uniqueId;
     private final String name;
-    private volatile String currentService;
     private final String proxyName;
     private final String address;
+    private volatile String currentService;
 
     public CloudPlayerImpl(UUID uniqueId, String name, String currentService,
                            String proxyName, String address) {
@@ -23,11 +23,20 @@ public class CloudPlayerImpl implements CloudPlayer {
         this.address = address;
     }
 
-    @Override public UUID getUniqueId()      { return uniqueId; }
-    @Override public String getName()        { return name; }
-    @Override public String getCurrentService() { return currentService; }
-    @Override public String getProxyName()   { return proxyName; }
-    @Override public String getAddress()     { return address; }
+    @Override
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getCurrentService() {
+        return currentService;
+    }
 
     /**
      * Updates the service the player is currently on.
@@ -36,5 +45,15 @@ public class CloudPlayerImpl implements CloudPlayer {
      */
     public void setCurrentService(String serviceName) {
         this.currentService = serviceName;
+    }
+
+    @Override
+    public String getProxyName() {
+        return proxyName;
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
     }
 }

@@ -23,8 +23,8 @@ public class NodeServiceManager {
     public NodeServiceManager(NodeServiceTracker tracker,
                               NodeServiceFactory factory,
                               ServiceRpcClient serviceRpcClient) {
-        this.tracker          = tracker;
-        this.factory          = factory;
+        this.tracker = tracker;
+        this.factory = factory;
         this.serviceRpcClient = serviceRpcClient;
     }
 

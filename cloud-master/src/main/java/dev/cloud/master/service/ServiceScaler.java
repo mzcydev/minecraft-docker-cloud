@@ -34,9 +34,9 @@ public class ServiceScaler {
     public ServiceScaler(MasterGroupManager groupManager,
                          MasterServiceManager serviceManager,
                          MasterNodeManager nodeManager) {
-        this.groupManager   = groupManager;
+        this.groupManager = groupManager;
         this.serviceManager = serviceManager;
-        this.nodeManager    = nodeManager;
+        this.nodeManager = nodeManager;
     }
 
     public void start() {

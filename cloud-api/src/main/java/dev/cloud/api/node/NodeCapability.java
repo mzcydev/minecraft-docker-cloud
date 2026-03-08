@@ -9,4 +9,5 @@ public record NodeCapability(
         String operatingSystem,
         String javaVersion,
         String dockerVersion
-) {}
+) {
+}

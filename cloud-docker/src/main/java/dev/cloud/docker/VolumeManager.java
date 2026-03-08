@@ -2,7 +2,6 @@ package dev.cloud.docker;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.exception.NotFoundException;
-import com.github.dockerjava.api.model.Volume;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +19,16 @@ public class VolumeManager {
 
     public VolumeManager(DockerClient docker) {
         this.docker = docker;
+    }
+
+    /**
+     * Returns the volume name for a given service name.
+     *
+     * @param serviceName the service name
+     * @return the Docker volume name
+     */
+    public static String volumeNameFor(String serviceName) {
+        return VOLUME_PREFIX + serviceName;
     }
 
     /**
@@ -70,15 +79,5 @@ public class VolumeManager {
         } catch (NotFoundException e) {
             return false;
         }
-    }
-
-    /**
-     * Returns the volume name for a given service name.
-     *
-     * @param serviceName the service name
-     * @return the Docker volume name
-     */
-    public static String volumeNameFor(String serviceName) {
-        return VOLUME_PREFIX + serviceName;
     }
 }

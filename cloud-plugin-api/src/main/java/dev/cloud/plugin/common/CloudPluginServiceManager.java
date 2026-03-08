@@ -28,8 +28,8 @@ public class CloudPluginServiceManager {
 
     public CloudPluginServiceManager(ManagedChannel channel, CloudPluginEventBus eventBus) {
         this.serviceClient = new ServiceRpcClient(channel);
-        this.groupClient   = new GroupRpcClient(channel);
-        this.eventBus      = eventBus;
+        this.groupClient = new GroupRpcClient(channel);
+        this.eventBus = eventBus;
     }
 
     /**

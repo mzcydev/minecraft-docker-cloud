@@ -12,8 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ServiceRegistry {
 
-    /** serviceId → service */
-    private final Map<String, CloudServiceImpl> byId   = new ConcurrentHashMap<>();
+    /**
+     * serviceId → service
+     */
+    private final Map<String, CloudServiceImpl> byId = new ConcurrentHashMap<>();
     private final Map<String, CloudServiceImpl> byName = new ConcurrentHashMap<>();
 
     public void add(CloudServiceImpl service) {

@@ -47,6 +47,8 @@ public class NodeController {
         api.nodeRegistry().findNode(name)
                 .map(mapper::toDto)
                 .ifPresentOrElse(ctx::json,
-                        () -> { throw new NotFoundResponse("Node not found: " + name); });
+                        () -> {
+                            throw new NotFoundResponse("Node not found: " + name);
+                        });
     }
 }

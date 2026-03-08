@@ -15,7 +15,9 @@ public class ServiceStateTracker {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceStateTracker.class);
 
-    /** serviceId → current state */
+    /**
+     * serviceId → current state
+     */
     private final Map<String, ServiceState> states = new ConcurrentHashMap<>();
 
     /**

@@ -5,15 +5,23 @@ package dev.cloud.api.group;
  */
 public enum ServiceType {
 
-    /** Velocity reverse proxy. */
+    /**
+     * Velocity reverse proxy.
+     */
     VELOCITY,
 
-    /** BungeeCord reverse proxy. */
+    /**
+     * BungeeCord reverse proxy.
+     */
     BUNGEECORD,
 
-    /** Paper or Spigot game server. */
+    /**
+     * Paper or Spigot game server.
+     */
     PAPER,
 
-    /** Fabric mod loader game server. */
+    /**
+     * Fabric mod loader game server.
+     */
     FABRIC
 }

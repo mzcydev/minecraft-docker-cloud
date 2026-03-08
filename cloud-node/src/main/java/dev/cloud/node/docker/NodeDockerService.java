@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.nio.file.Path;
-import java.util.Optional;
 
 /**
  * Node-level Docker service — creates, starts and stops containers for cloud services.
@@ -19,13 +18,13 @@ public class NodeDockerService {
     private static final Logger log = LoggerFactory.getLogger(NodeDockerService.class);
 
     private final ContainerManager containerManager;
-    private final VolumeManager    volumeManager;
-    private final NetworkManager   networkManager;
-    private final ImageManager     imageManager;
-    private final PortAllocator    portAllocator;
+    private final VolumeManager volumeManager;
+    private final NetworkManager networkManager;
+    private final ImageManager imageManager;
+    private final PortAllocator portAllocator;
     private final ContainerLogStreamer logStreamer;
-    private final NodeLogHandler   logHandler;
-    private final ImageResolver    imageResolver = new ImageResolver();
+    private final NodeLogHandler logHandler;
+    private final ImageResolver imageResolver = new ImageResolver();
 
     public NodeDockerService(ContainerManager containerManager,
                              VolumeManager volumeManager,
@@ -35,12 +34,12 @@ public class NodeDockerService {
                              ContainerLogStreamer logStreamer,
                              NodeLogHandler logHandler) {
         this.containerManager = containerManager;
-        this.volumeManager    = volumeManager;
-        this.networkManager   = networkManager;
-        this.imageManager     = imageManager;
-        this.portAllocator    = portAllocator;
-        this.logStreamer       = logStreamer;
-        this.logHandler       = logHandler;
+        this.volumeManager = volumeManager;
+        this.networkManager = networkManager;
+        this.imageManager = imageManager;
+        this.portAllocator = portAllocator;
+        this.logStreamer = logStreamer;
+        this.logHandler = logHandler;
     }
 
     /**
@@ -119,5 +118,6 @@ public class NodeDockerService {
             String containerId,
             int port,
             Closeable logStream
-    ) {}
+    ) {
+    }
 }

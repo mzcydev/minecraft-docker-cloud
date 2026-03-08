@@ -24,12 +24,14 @@ public class CloudPluginPlayerManager {
     private final PlayerRpcClient rpcClient;
     private final CloudPluginEventBus eventBus;
 
-    /** Players currently on this service instance. */
+    /**
+     * Players currently on this service instance.
+     */
     private final Map<UUID, CloudPlayer> localPlayers = new ConcurrentHashMap<>();
 
     public CloudPluginPlayerManager(ManagedChannel channel, CloudPluginEventBus eventBus) {
         this.rpcClient = new PlayerRpcClient(channel);
-        this.eventBus  = eventBus;
+        this.eventBus = eventBus;
     }
 
     /**

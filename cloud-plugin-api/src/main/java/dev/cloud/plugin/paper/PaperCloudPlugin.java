@@ -44,7 +44,18 @@ public class PaperCloudPlugin extends JavaPlugin implements CloudPlugin {
         log.info("PaperCloudPlugin disabled.");
     }
 
-    @Override public String getServiceName() { return CloudPluginBootstrap.requireEnv("SERVICE_NAME"); }
-    @Override public String getMasterHost()  { return CloudPluginBootstrap.requireEnv("MASTER_HOST"); }
-    @Override public int    getMasterPort()  { return CloudPluginBootstrap.envInt("MASTER_PORT", 9090); }
+    @Override
+    public String getServiceName() {
+        return CloudPluginBootstrap.requireEnv("SERVICE_NAME");
+    }
+
+    @Override
+    public String getMasterHost() {
+        return CloudPluginBootstrap.requireEnv("MASTER_HOST");
+    }
+
+    @Override
+    public int getMasterPort() {
+        return CloudPluginBootstrap.envInt("MASTER_PORT", 9090);
+    }
 }

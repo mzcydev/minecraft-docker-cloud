@@ -1,7 +1,6 @@
 package dev.cloud.node.health;
 
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.model.Info;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +20,7 @@ public class HealthMonitor {
     private final MemoryMXBean memoryBean;
 
     public HealthMonitor(DockerClient docker, int maxMemoryMb) {
-        this.docker     = docker;
+        this.docker = docker;
         this.maxMemoryMb = maxMemoryMb;
         this.memoryBean = ManagementFactory.getMemoryMXBean();
     }

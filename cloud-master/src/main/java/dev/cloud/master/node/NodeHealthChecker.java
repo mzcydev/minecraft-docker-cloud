@@ -18,7 +18,7 @@ public class NodeHealthChecker {
 
     private static final Logger log = LoggerFactory.getLogger(NodeHealthChecker.class);
     private static final int TIMEOUT_SECONDS = 15;
-    private static final int CHECK_INTERVAL  = 10;
+    private static final int CHECK_INTERVAL = 10;
 
     private final NodeRegistry registry;
     private final MasterNodeManager nodeManager;
@@ -31,7 +31,7 @@ public class NodeHealthChecker {
             });
 
     public NodeHealthChecker(NodeRegistry registry, MasterNodeManager nodeManager) {
-        this.registry    = registry;
+        this.registry = registry;
         this.nodeManager = nodeManager;
     }
 

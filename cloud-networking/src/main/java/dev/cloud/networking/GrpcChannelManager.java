@@ -1,9 +1,9 @@
 package dev.cloud.networking;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import dev.cloud.networking.interceptor.AuthInterceptor;
 import dev.cloud.networking.interceptor.LoggingInterceptor;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,9 @@ public class GrpcChannelManager {
 
     private static final Logger log = LoggerFactory.getLogger(GrpcChannelManager.class);
 
-    /** Maps node name → open channel. */
+    /**
+     * Maps node name → open channel.
+     */
     private final Map<String, ManagedChannel> channels = new ConcurrentHashMap<>();
     private final String authToken;
 

@@ -7,7 +7,8 @@ import java.lang.management.ManagementFactory;
  */
 public final class PlatformInfo {
 
-    private PlatformInfo() {}
+    private PlatformInfo() {
+    }
 
     /**
      * Returns the total physical memory of the machine in megabytes.

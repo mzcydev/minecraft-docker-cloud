@@ -1,7 +1,7 @@
 package dev.cloud.networking.service;
 
-import dev.cloud.proto.service.*;
 import dev.cloud.proto.common.Response;
+import dev.cloud.proto.service.*;
 import io.grpc.ManagedChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

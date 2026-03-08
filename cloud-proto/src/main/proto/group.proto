@@ -13,25 +13,25 @@ option java_outer_classname = "GroupProto";
  * Mirrors dev.cloud.api.group.ServiceGroupImpl.
  */
 message ProtoGroup {
-  string                             name              = 1;
-  dev.cloud.proto.common.ServiceType service_type      = 2;
-  string                             template_name     = 3;
-  int32                              min_online_count  = 4;
-  int32                              max_online_count  = 5;
-  int32                              max_players       = 6;
-  int32                              memory            = 7;
-  dev.cloud.proto.common.Lifecycle   lifecycle         = 8;
-  bool                               maintenance       = 9;
-  string                             jvm_flags         = 10;
-  int32                              start_port        = 11;
+  string                             name = 1;
+  dev.cloud.proto.common.ServiceType service_type = 2;
+  string                             template_name = 3;
+  int32                              min_online_count = 4;
+  int32                              max_online_count = 5;
+  int32                              max_players = 6;
+  int32                              memory = 7;
+  dev.cloud.proto.common.Lifecycle   lifecycle = 8;
+  bool                               maintenance = 9;
+  string                             jvm_flags = 10;
+  int32                              start_port = 11;
 }
 
-message CreateGroupRequest  { ProtoGroup group = 1; }
-message UpdateGroupRequest  { ProtoGroup group = 1; }
-message DeleteGroupRequest  { string name      = 1; }
-message GetGroupRequest     { string name      = 1; }
-message GetGroupResponse    { ProtoGroup group = 1; }
-message ListGroupsResponse  { repeated ProtoGroup groups = 1; }
+message CreateGroupRequest  {ProtoGroup group = 1;}
+message UpdateGroupRequest  {ProtoGroup group = 1;}
+message DeleteGroupRequest  {string name = 1;}
+message GetGroupRequest     {string name = 1;}
+message GetGroupResponse    {ProtoGroup group = 1;}
+message ListGroupsResponse  {repeated ProtoGroup groups = 1;}
 
 /**
  * RPC service for managing service group configurations.

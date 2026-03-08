@@ -21,6 +21,7 @@ public record RunningService(
     public void closeLog() {
         try {
             if (logStream != null) logStream.close();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 }

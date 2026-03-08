@@ -1,6 +1,5 @@
 package dev.cloud.plugin.paper;
 
-import dev.cloud.api.event.events.PlayerLoginEvent;
 import dev.cloud.plugin.common.CloudPluginEventBus;
 import dev.cloud.plugin.common.CloudPluginPlayerManager;
 import org.bukkit.event.EventHandler;
@@ -26,8 +25,8 @@ public class PaperPlayerListener implements Listener {
                                CloudPluginEventBus eventBus,
                                String serviceName) {
         this.playerManager = playerManager;
-        this.eventBus      = eventBus;
-        this.serviceName   = serviceName;
+        this.eventBus = eventBus;
+        this.serviceName = serviceName;
     }
 
     @EventHandler

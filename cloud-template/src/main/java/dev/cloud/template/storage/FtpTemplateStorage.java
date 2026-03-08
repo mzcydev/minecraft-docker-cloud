@@ -28,12 +28,12 @@ public class FtpTemplateStorage {
     private final Path localCache;
 
     /**
-     * @param host        the FTP server hostname
-     * @param port        the FTP server port (usually 21)
-     * @param username    FTP username
-     * @param password    FTP password
-     * @param remoteRoot  the remote base path where templates are stored
-     * @param localCache  local directory to cache downloaded files
+     * @param host       the FTP server hostname
+     * @param port       the FTP server port (usually 21)
+     * @param username   FTP username
+     * @param password   FTP password
+     * @param remoteRoot the remote base path where templates are stored
+     * @param localCache local directory to cache downloaded files
      */
     public FtpTemplateStorage(String host, int port, String username,
                               String password, String remoteRoot, Path localCache) {

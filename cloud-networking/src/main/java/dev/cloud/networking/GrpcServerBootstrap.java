@@ -1,11 +1,11 @@
 package dev.cloud.networking;
 
+import dev.cloud.networking.interceptor.AuthInterceptor;
+import dev.cloud.networking.interceptor.LoggingInterceptor;
+import io.grpc.BindableService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.ServerInterceptors;
-import io.grpc.BindableService;
-import dev.cloud.networking.interceptor.AuthInterceptor;
-import dev.cloud.networking.interceptor.LoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,7 +96,9 @@ public class GrpcServerBootstrap {
         }
     }
 
-    /** Returns {@code true} if the server is running and has not been shut down. */
+    /**
+     * Returns {@code true} if the server is running and has not been shut down.
+     */
     public boolean isRunning() {
         return server != null && !server.isShutdown();
     }

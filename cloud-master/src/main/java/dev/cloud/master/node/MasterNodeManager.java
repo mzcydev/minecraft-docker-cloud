@@ -23,14 +23,16 @@ public class MasterNodeManager {
 
     private static final Logger log = LoggerFactory.getLogger(MasterNodeManager.class);
 
-    /** nodeName → node */
+    /**
+     * nodeName → node
+     */
     private final Map<String, CloudNodeImpl> nodes = new ConcurrentHashMap<>();
 
     private final EventBus eventBus;
     private final GrpcChannelManager channelManager;
 
     public MasterNodeManager(EventBus eventBus, GrpcChannelManager channelManager) {
-        this.eventBus       = eventBus;
+        this.eventBus = eventBus;
         this.channelManager = channelManager;
     }
 

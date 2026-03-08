@@ -13,7 +13,9 @@ import java.util.List;
  */
 public class ChunkReader {
 
-    /** Default chunk size: 512 KB. */
+    /**
+     * Default chunk size: 512 KB.
+     */
     public static final int DEFAULT_CHUNK_SIZE = 512 * 1024;
 
     private final int chunkSize;

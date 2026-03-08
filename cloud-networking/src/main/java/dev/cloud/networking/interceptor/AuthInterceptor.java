@@ -15,12 +15,12 @@ import org.slf4j.LoggerFactory;
  */
 public class AuthInterceptor implements ServerInterceptor, ClientInterceptor {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthInterceptor.class);
-
-    /** The metadata key used to carry the auth token. */
+    /**
+     * The metadata key used to carry the auth token.
+     */
     public static final Metadata.Key<String> AUTH_KEY =
             Metadata.Key.of("Authorization", Metadata.ASCII_STRING_MARSHALLER);
-
+    private static final Logger log = LoggerFactory.getLogger(AuthInterceptor.class);
     private final String expectedToken;
 
     /**
@@ -44,7 +44,8 @@ public class AuthInterceptor implements ServerInterceptor, ClientInterceptor {
         if (!expectedToken.equals(token)) {
             log.warn("Rejected unauthenticated call to {}", call.getMethodDescriptor().getFullMethodName());
             call.close(Status.UNAUTHENTICATED.withDescription("Invalid or missing auth token"), new Metadata());
-            return new ServerCall.Listener<>() {};
+            return new ServerCall.Listener<>() {
+            };
         }
 
         return next.startCall(call, headers);

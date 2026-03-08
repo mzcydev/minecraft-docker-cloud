@@ -12,7 +12,8 @@ import dev.cloud.proto.service.StartServiceRequest;
  */
 public class ProtoGroupMapper {
 
-    private ProtoGroupMapper() {}
+    private ProtoGroupMapper() {
+    }
 
     /**
      * Builds a {@link ServiceGroup} from the fields embedded in a {@link StartServiceRequest}.

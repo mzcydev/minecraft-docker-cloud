@@ -3,11 +3,10 @@ package dev.cloud.node.service;
 import dev.cloud.api.group.ServiceGroup;
 import dev.cloud.api.service.CloudServiceImpl;
 import dev.cloud.api.service.ServiceState;
+import dev.cloud.networking.service.ServiceRpcClient;
 import dev.cloud.node.config.NodeConfig;
 import dev.cloud.node.docker.NodeDockerService;
 import dev.cloud.node.template.NodeTemplateManager;
-import dev.cloud.networking.service.ServiceRpcClient;
-import dev.cloud.node.NodeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,11 +35,11 @@ public class NodeServiceFactory {
                               ServiceDirectoryManager directoryManager,
                               ServiceRpcClient serviceRpcClient,
                               NodeConfig config) {
-        this.dockerService    = dockerService;
-        this.templateManager  = templateManager;
+        this.dockerService = dockerService;
+        this.templateManager = templateManager;
         this.directoryManager = directoryManager;
         this.serviceRpcClient = serviceRpcClient;
-        this.config           = config;
+        this.config = config;
     }
 
     /**

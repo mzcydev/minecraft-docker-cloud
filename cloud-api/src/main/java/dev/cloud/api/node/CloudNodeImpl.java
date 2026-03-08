@@ -23,25 +23,24 @@ public class CloudNodeImpl implements CloudNode {
         this.state = NodeState.CONNECTING;
     }
 
-    @Override public String getName()      { return name; }
-    @Override public String getHost()      { return host; }
-    @Override public int getPort()         { return port; }
-    @Override public NodeState getState()  { return state; }
-    @Override public int getTotalMemory()  { return totalMemory; }
-    @Override public int getUsedMemory()   { return usedMemory; }
-    @Override public double getCpuUsage()  { return cpuUsage; }
-    @Override public int getServiceCount() { return serviceCount; }
+    @Override
+    public String getName() {
+        return name;
+    }
 
-    /**
-     * Applies an updated {@link NodeInfo} heartbeat payload to this node's state.
-     *
-     * @param info the latest heartbeat data received from the node
-     */
-    public void applyInfo(NodeInfo info) {
-        this.totalMemory  = info.totalMemory();
-        this.usedMemory   = info.usedMemory();
-        this.cpuUsage     = info.cpuUsage();
-        this.serviceCount = info.serviceCount();
+    @Override
+    public String getHost() {
+        return host;
+    }
+
+    @Override
+    public int getPort() {
+        return port;
+    }
+
+    @Override
+    public NodeState getState() {
+        return state;
     }
 
     /**
@@ -51,5 +50,37 @@ public class CloudNodeImpl implements CloudNode {
      */
     public void setState(NodeState state) {
         this.state = state;
+    }
+
+    @Override
+    public int getTotalMemory() {
+        return totalMemory;
+    }
+
+    @Override
+    public int getUsedMemory() {
+        return usedMemory;
+    }
+
+    @Override
+    public double getCpuUsage() {
+        return cpuUsage;
+    }
+
+    @Override
+    public int getServiceCount() {
+        return serviceCount;
+    }
+
+    /**
+     * Applies an updated {@link NodeInfo} heartbeat payload to this node's state.
+     *
+     * @param info the latest heartbeat data received from the node
+     */
+    public void applyInfo(NodeInfo info) {
+        this.totalMemory = info.totalMemory();
+        this.usedMemory = info.usedMemory();
+        this.cpuUsage = info.cpuUsage();
+        this.serviceCount = info.serviceCount();
     }
 }

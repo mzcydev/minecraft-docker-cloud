@@ -5,12 +5,18 @@ package dev.cloud.api.service;
  */
 public enum ServiceLifecycle {
 
-    /** Automatically managed by the scheduler based on group min/max settings. */
+    /**
+     * Automatically managed by the scheduler based on group min/max settings.
+     */
     DYNAMIC,
 
-    /** Runs permanently; world data and files are preserved across restarts. */
+    /**
+     * Runs permanently; world data and files are preserved across restarts.
+     */
     STATIC,
 
-    /** Started manually; not subject to automatic scheduling or shutdown. */
+    /**
+     * Started manually; not subject to automatic scheduling or shutdown.
+     */
     MANUAL
 }

@@ -29,9 +29,9 @@ public class ConfigLoader {
     /**
      * Loads a YAML file and deserializes it into an instance of the given type.
      *
-     * @param path   the path to the YAML file
-     * @param type   the target class to deserialize into
-     * @param <T>    the target type
+     * @param path the path to the YAML file
+     * @param type the target class to deserialize into
+     * @param <T>  the target type
      * @return the deserialized object
      * @throws IOException if the file cannot be read or parsed
      */

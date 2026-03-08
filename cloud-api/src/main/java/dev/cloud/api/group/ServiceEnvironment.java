@@ -17,16 +17,16 @@ public record ServiceEnvironment(
      */
     public static ServiceEnvironment of(ServiceType type) {
         return switch (type) {
-            case PAPER      -> new ServiceEnvironment(type,
+            case PAPER -> new ServiceEnvironment(type,
                     "eclipse-temurin:21-jre-alpine",
                     "java %jvm_flags% -jar server.jar --nogui");
-            case VELOCITY   -> new ServiceEnvironment(type,
+            case VELOCITY -> new ServiceEnvironment(type,
                     "eclipse-temurin:21-jre-alpine",
                     "java %jvm_flags% -jar velocity.jar");
             case BUNGEECORD -> new ServiceEnvironment(type,
                     "eclipse-temurin:21-jre-alpine",
                     "java %jvm_flags% -jar bungeecord.jar");
-            case FABRIC     -> new ServiceEnvironment(type,
+            case FABRIC -> new ServiceEnvironment(type,
                     "eclipse-temurin:21-jre-alpine",
                     "java %jvm_flags% -jar fabric-server-launch.jar nogui");
         };

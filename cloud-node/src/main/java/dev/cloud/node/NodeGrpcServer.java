@@ -23,8 +23,8 @@ public class NodeGrpcServer {
     private Server server;
 
     public NodeGrpcServer(int port, NodeCloudAPI cloudAPI, String authToken) {
-        this.port      = port;
-        this.cloudAPI  = cloudAPI;
+        this.port = port;
+        this.cloudAPI = cloudAPI;
         this.authToken = authToken;
     }
 

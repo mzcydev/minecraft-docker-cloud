@@ -3,11 +3,12 @@ package dev.cloud.networking.service;
 import dev.cloud.api.event.EventBus;
 import dev.cloud.api.event.events.service.ServiceStateChangeEvent;
 import dev.cloud.api.event.events.service.ServiceUpdateEvent;
-import dev.cloud.api.service.CloudService;
 import dev.cloud.api.service.ServiceManager;
 import dev.cloud.api.service.ServiceState;
 import dev.cloud.proto.common.Empty;
-import dev.cloud.proto.service.*;
+import dev.cloud.proto.service.ServicePlayerUpdate;
+import dev.cloud.proto.service.ServiceReporterGrpc;
+import dev.cloud.proto.service.ServiceStateUpdate;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,10 +73,10 @@ public class ServiceRpcService extends ServiceReporterGrpc.ServiceReporterImplBa
         return switch (protoState) {
             case SERVICE_STATE_PREPARED -> ServiceState.PREPARED;
             case SERVICE_STATE_STARTING -> ServiceState.STARTING;
-            case SERVICE_STATE_ONLINE   -> ServiceState.ONLINE;
+            case SERVICE_STATE_ONLINE -> ServiceState.ONLINE;
             case SERVICE_STATE_STOPPING -> ServiceState.STOPPING;
-            case SERVICE_STATE_STOPPED  -> ServiceState.STOPPED;
-            default                     -> ServiceState.UNKNOWN;
+            case SERVICE_STATE_STOPPED -> ServiceState.STOPPED;
+            default -> ServiceState.UNKNOWN;
         };
     }
 }

@@ -44,10 +44,27 @@ public class CloudAPI {
         return instance;
     }
 
-    public ServiceManager getServiceManager()     { return serviceManager; }
-    public GroupManager getGroupManager()         { return groupManager; }
-    public NodeManager getNodeManager()           { return nodeManager; }
-    public PlayerManager getPlayerManager()       { return playerManager; }
-    public TemplateManager getTemplateManager()   { return templateManager; }
-    public EventBus getEventBus()                 { return eventBus; }
+    public ServiceManager getServiceManager() {
+        return serviceManager;
+    }
+
+    public GroupManager getGroupManager() {
+        return groupManager;
+    }
+
+    public NodeManager getNodeManager() {
+        return nodeManager;
+    }
+
+    public PlayerManager getPlayerManager() {
+        return playerManager;
+    }
+
+    public TemplateManager getTemplateManager() {
+        return templateManager;
+    }
+
+    public EventBus getEventBus() {
+        return eventBus;
+    }
 }

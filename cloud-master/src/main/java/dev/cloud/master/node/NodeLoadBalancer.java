@@ -1,8 +1,8 @@
 package dev.cloud.master.node;
 
+import dev.cloud.api.group.ServiceGroup;
 import dev.cloud.api.node.CloudNodeImpl;
 import dev.cloud.api.node.NodeState;
-import dev.cloud.api.group.ServiceGroup;
 
 import java.util.Comparator;
 import java.util.Optional;
