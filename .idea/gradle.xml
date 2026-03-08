@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="corretto-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/cloud-api" />
+            <option value="$PROJECT_DIR$/cloud-docker" />
+            <option value="$PROJECT_DIR$/cloud-master" />
+            <option value="$PROJECT_DIR$/cloud-networking" />
+            <option value="$PROJECT_DIR$/cloud-node" />
+            <option value="$PROJECT_DIR$/cloud-plugin-api" />
+            <option value="$PROJECT_DIR$/cloud-proto" />
+            <option value="$PROJECT_DIR$/cloud-rest" />
+            <option value="$PROJECT_DIR$/cloud-template" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

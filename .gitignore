@@ -1,0 +1,12 @@
+# Project exclude paths
+/.gradle/
+/build/
+/cloud-api/build/
+/cloud-docker/build/
+/cloud-master/build/
+/cloud-networking/build/
+/cloud-node/build/
+/cloud-plugin-api/build/
+/cloud-proto/build/
+/cloud-rest/build/
+/cloud-template/build/
