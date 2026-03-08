@@ -52,7 +52,7 @@ public class NodeHealthChecker {
             if (node.getLastHeartbeat() != null && node.getLastHeartbeat().isBefore(threshold)) {
                 log.warn("Node '{}' timed out — no heartbeat since {}.",
                         node.getName(), node.getLastHeartbeat());
-                nodeManager.unregister(node.getName());
+                nodeManager.unregisterNode(node.getName());
             }
         }
     }

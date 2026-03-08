@@ -79,7 +79,7 @@ public class ServiceScaler {
                     group.getName(), toStop, running, max);
             serviceManager.findByGroup(group.getName()).stream()
                     .limit(toStop)
-                    .forEach(s -> serviceManager.stopService(s.getId().toString()));
+                    .forEach(s -> serviceManager.stopService(s.getId().toString())); // stopService takes id
         }
     }
 }

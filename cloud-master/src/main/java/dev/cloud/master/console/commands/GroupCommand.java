@@ -3,7 +3,6 @@ package dev.cloud.master.console.commands;
 import dev.cloud.api.group.ServiceGroup;
 import dev.cloud.api.group.ServiceGroupImpl;
 import dev.cloud.api.group.ServiceType;
-import dev.cloud.api.service.ServiceLifecycle;
 import dev.cloud.master.group.MasterGroupManager;
 
 /**
@@ -48,8 +47,8 @@ public class GroupCommand implements Command {
                     return;
                 }
                 groups.forEach(g -> sender.sendMessage(
-                        "  » " + g.getName() + " [" + g.getServiceType() + "] min=" +
-                                g.getMinOnlineCount() + " max=" + g.getMaxOnlineCount()));
+                        "  » " + g.getName() + " [" + g.getType() + "] min=" +
+                                g.getMinServices() + " max=" + g.getMaxServices()));
             }
             case "create" -> {
                 if (args.length < 3) {
@@ -60,7 +59,7 @@ public class GroupCommand implements Command {
                     ServiceType type = ServiceType.valueOf(args[2].toUpperCase());
                     ServiceGroup group = new ServiceGroupImpl(
                             args[1], type, args[1].toLowerCase(),
-                            512, 100, 1, 5, ServiceLifecycle.MANUAL, false
+                            512, 100, 1, 5, null, false
                     );
                     groupManager.createGroup(group);
                     sender.sendMessage("Group '" + args[1] + "' created.");
@@ -84,11 +83,11 @@ public class GroupCommand implements Command {
                 }
                 groupManager.getGroup(args[1]).ifPresentOrElse(g -> {
                     sender.sendMessage("Group: " + g.getName());
-                    sender.sendMessage("  Type:     " + g.getServiceType());
+                    sender.sendMessage("  Type:     " + g.getType());
                     sender.sendMessage("  Template: " + g.getTemplateName());
                     sender.sendMessage("  Memory:   " + g.getMemory() + "MB");
                     sender.sendMessage("  Players:  max " + g.getMaxPlayers());
-                    sender.sendMessage("  Services: " + g.getMinOnlineCount() + "-" + g.getMaxOnlineCount());
+                    sender.sendMessage("  Services: " + g.getMinServices() + "-" + g.getMaxServices());
                 }, () -> sender.sendMessage("Group not found: " + args[1]));
             }
             default -> sender.sendMessage("Usage: " + getUsage());

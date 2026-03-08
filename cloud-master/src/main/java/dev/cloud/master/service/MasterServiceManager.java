@@ -1,12 +1,13 @@
 package dev.cloud.master.service;
 
 import dev.cloud.api.event.EventBus;
-import dev.cloud.api.event.events.ServiceStartEvent;
-import dev.cloud.api.event.events.ServiceStoppedEvent;
+import dev.cloud.api.event.events.service.ServiceStartEvent;
+import dev.cloud.api.event.events.service.ServiceStoppedEvent;
 import dev.cloud.api.group.ServiceGroup;
 import dev.cloud.api.node.CloudNode;
 import dev.cloud.api.service.CloudService;
 import dev.cloud.api.service.CloudServiceImpl;
+import dev.cloud.api.service.ServiceManager;
 import dev.cloud.api.service.ServiceState;
 import dev.cloud.master.MasterConfig;
 import dev.cloud.master.node.MasterNodeManager;
@@ -22,53 +23,33 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Master-side service lifecycle manager.
- * Decides which node to use, sends start/stop commands via gRPC,
- * and tracks all services across the entire cloud.
- */
-public class MasterServiceManager {
+public class MasterServiceManager implements ServiceManager {
 
     private static final Logger log = LoggerFactory.getLogger(MasterServiceManager.class);
 
-    /**
-     * serviceId → service
-     */
-    private final Map<String, CloudServiceImpl> services = new ConcurrentHashMap<>();
-
-    /**
-     * groupName → counter for naming (Lobby-1, Lobby-2, ...)
-     */
-    private final Map<String, AtomicInteger> counters = new ConcurrentHashMap<>();
+    private final Map<String, CloudServiceImpl> byId   = new ConcurrentHashMap<>();
+    private final Map<String, CloudServiceImpl> byName = new ConcurrentHashMap<>();
+    private final Map<String, AtomicInteger> counters  = new ConcurrentHashMap<>();
 
     private final EventBus eventBus;
     private final MasterNodeManager nodeManager;
     private final GrpcChannelManager channelManager;
     private final MasterConfig config;
 
-    public MasterServiceManager(EventBus eventBus,
-                                MasterNodeManager nodeManager,
-                                GrpcChannelManager channelManager,
-                                MasterConfig config) {
-        this.eventBus = eventBus;
-        this.nodeManager = nodeManager;
+    public MasterServiceManager(EventBus eventBus, MasterNodeManager nodeManager,
+                                GrpcChannelManager channelManager, MasterConfig config) {
+        this.eventBus       = eventBus;
+        this.nodeManager    = nodeManager;
         this.channelManager = channelManager;
-        this.config = config;
+        this.config         = config;
     }
 
-    /**
-     * Starts a new service for the given group on the best available node.
-     *
-     * @param group the group to start a service for
-     * @return the started service, or empty if no node is available
-     */
     public Optional<CloudService> startService(ServiceGroup group) {
-        Optional<CloudNode> nodeOpt = nodeManager.selectBestNode();
+        Optional<CloudNode> nodeOpt = nodeManager.selectBestNode(group.getMemory());
         if (nodeOpt.isEmpty()) {
-            log.warn("No node available to start service for group '{}'.", group.getName());
+            log.warn("No node available for group '{}'.", group.getName());
             return Optional.empty();
         }
-
         CloudNode node = nodeOpt.get();
         String serviceName = nextName(group.getName());
         UUID serviceId = UUID.randomUUID();
@@ -87,91 +68,77 @@ public class MasterServiceManager {
             return Optional.empty();
         }
 
-        services.put(serviceId.toString(), service);
+        byId.put(serviceId.toString(), service);
+        byName.put(serviceName, service);
 
-        // Send start command to the node via gRPC
         try {
-            ServiceRpcClient client = new ServiceRpcClient(
-                    channelManager.getChannel(node.getName()));
+            ServiceRpcClient client = new ServiceRpcClient(channelManager.getChannel(node.getName()));
             client.startService(serviceName, group);
-            log.info("Start command sent for '{}' → node '{}'", serviceName, node.getName());
+            log.info("Start command sent: '{}' → node '{}'", serviceName, node.getName());
         } catch (Exception e) {
-            log.error("Failed to send start command for '{}': {}", serviceName, e.getMessage(), e);
-            services.remove(serviceId.toString());
+            log.error("Failed to send start for '{}': {}", serviceName, e.getMessage(), e);
+            byId.remove(serviceId.toString());
+            byName.remove(serviceName);
             return Optional.empty();
         }
 
         return Optional.of(service);
     }
 
-    /**
-     * Stops a running service by sending a stop command to the node hosting it.
-     *
-     * @param serviceId the ID of the service to stop
-     */
     public void stopService(String serviceId) {
-        CloudServiceImpl service = services.remove(serviceId);
-        if (service == null) {
-            log.warn("Stop requested for unknown service ID: {}", serviceId);
-            return;
-        }
+        CloudServiceImpl service = byId.remove(serviceId);
+        if (service == null) { log.warn("Stop requested for unknown ID: {}", serviceId); return; }
+        byName.remove(service.getName());
 
         try {
-            ServiceRpcClient client = new ServiceRpcClient(
-                    channelManager.getChannel(service.getNodeName()));
+            ServiceRpcClient client = new ServiceRpcClient(channelManager.getChannel(service.getNodeName()));
             client.stopService(service.getName());
-            log.info("Stop command sent for '{}' → node '{}'", service.getName(), service.getNodeName());
         } catch (Exception e) {
-            log.error("Failed to send stop command for '{}': {}", service.getName(), e.getMessage(), e);
+            log.error("Failed to send stop for '{}': {}", service.getName(), e.getMessage(), e);
         }
 
         eventBus.publish(new ServiceStoppedEvent(service));
     }
 
-    /**
-     * Updates the state of a service.
-     * Called by the gRPC {@code ServiceRpcService} when a node reports a state change.
-     *
-     * @param serviceId the service ID
-     * @param state     the new state
-     */
+    @Override
     public void updateState(String serviceId, ServiceState state) {
-        CloudServiceImpl service = services.get(serviceId);
-        if (service != null) {
-            service.setState(state);
-            log.debug("Service '{}' state → {}", service.getName(), state);
-        }
+        CloudServiceImpl s = byName.get(serviceName);
+        if (s != null) { s.setState(state); log.debug("Service '{}' → {}", s.getName(), state); }
     }
 
-    /**
-     * Returns all currently tracked services.
-     */
-    public Collection<CloudServiceImpl> allServices() {
-        return services.values();
+    @Override
+    public void updatePlayerCount(String serviceId, int count) {
+        CloudServiceImpl s = byName.get(serviceName);
+        if (s != null) s.setOnlinePlayers(count);
     }
 
-    /**
-     * Finds a service by ID.
-     */
-    public Optional<CloudServiceImpl> findById(String serviceId) {
-        return Optional.ofNullable(services.get(serviceId));
+    @Override
+    public Optional<CloudService> getService(String name) {
+        return Optional.ofNullable(byName.get(name));
     }
 
-    /**
-     * Finds all services belonging to a group.
-     */
-    public Collection<CloudServiceImpl> findByGroup(String groupName) {
-        return services.values().stream()
+    @Override
+    public Collection<CloudService> getAllServices() {
+        return byId.values().stream().map(s -> (CloudService) s).toList();
+    }
+
+    @Override
+    public Collection<CloudService> getServicesByGroup(String groupName) {
+        return byId.values().stream()
                 .filter(s -> s.getGroupName().equals(groupName))
+                .map(s -> (CloudService) s)
                 .toList();
     }
 
-    /**
-     * Generates the next sequential service name for a group.
-     */
+    public Optional<CloudServiceImpl> findById(String id) { return Optional.ofNullable(byId.get(id)); }
+
+    public Collection<CloudServiceImpl> allServices() { return byId.values(); }
+
+    public Collection<CloudServiceImpl> findByGroup(String groupName) {
+        return byId.values().stream().filter(s -> s.getGroupName().equals(groupName)).toList();
+    }
+
     private String nextName(String groupName) {
-        int number = counters.computeIfAbsent(groupName, k -> new AtomicInteger(0))
-                .incrementAndGet();
-        return groupName + "-" + number;
+        return groupName + "-" + counters.computeIfAbsent(groupName, k -> new AtomicInteger(0)).incrementAndGet();
     }
 }

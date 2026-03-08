@@ -61,7 +61,8 @@ public class HeartbeatSender {
             long usedMemoryMb = healthMonitor.usedMemoryMb();
             int maxMemoryMb = healthMonitor.maxMemoryMb();
 
-            rpcClient.sendHeartbeat(nodeName, serviceCount, usedMemoryMb, maxMemoryMb);
+            double cpuUsage = healthMonitor.cpuUsagePercent();
+            rpcClient.sendHeartbeat(nodeName, (int) usedMemoryMb, maxMemoryMb, cpuUsage, serviceCount);
             log.debug("Heartbeat sent: {} services, {}MB / {}MB", serviceCount, usedMemoryMb, maxMemoryMb);
         } catch (Exception e) {
             log.warn("Failed to send heartbeat: {}", e.getMessage());

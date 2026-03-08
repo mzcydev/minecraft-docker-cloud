@@ -4,6 +4,7 @@ import com.github.dockerjava.api.DockerClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sun.management.OperatingSystemMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 
@@ -54,6 +55,20 @@ public class HealthMonitor {
         long used = memoryBean.getHeapMemoryUsage().getUsed();
         if (max <= 0) return 0;
         return ((double) used / max) * 100.0;
+    }
+
+    /**
+     * Returns the current CPU usage as a percentage (0–100).
+     */
+    public double cpuUsagePercent() {
+        try {
+            OperatingSystemMXBean osBean = (OperatingSystemMXBean)
+                    ManagementFactory.getOperatingSystemMXBean();
+            double load = osBean.getCpuLoad();
+            return load < 0 ? 0 : load * 100.0;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /**

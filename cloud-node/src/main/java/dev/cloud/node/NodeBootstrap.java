@@ -4,7 +4,7 @@ import com.github.dockerjava.api.DockerClient;
 import dev.cloud.docker.*;
 import dev.cloud.networking.GrpcClientBootstrap;
 import dev.cloud.networking.node.NodeRpcClient;
-import dev.cloud.networking.service.ServiceRpcClient;
+import dev.cloud.networking.service.ServiceReporterClient;
 import dev.cloud.networking.template.TemplateRpcClient;
 import dev.cloud.node.docker.NodeDockerService;
 import dev.cloud.node.health.HealthMonitor;
@@ -73,7 +73,7 @@ public class NodeBootstrap {
         channel = grpc.connect();
 
         nodeRpcClient = new NodeRpcClient(channel);
-        ServiceRpcClient serviceRpcClient = new ServiceRpcClient(channel);
+        ServiceReporterClient reporterClient = new ServiceReporterClient(channel);
         TemplateRpcClient templateRpcClient = new TemplateRpcClient(channel,
                 Path.of(config.templateCacheDir()));
 
@@ -89,8 +89,8 @@ public class NodeBootstrap {
                 Path.of(config.serviceWorkDir()));
         NodeServiceTracker tracker = new NodeServiceTracker();
         NodeServiceFactory serviceFactory = new NodeServiceFactory(
-                dockerService, templateManager, directoryManager, serviceRpcClient, config);
-        serviceManager = new NodeServiceManager(tracker, serviceFactory, serviceRpcClient);
+                dockerService, templateManager, directoryManager, reporterClient, config);
+        serviceManager = new NodeServiceManager(tracker, serviceFactory, reporterClient);
 
         // 5. NodeCloudAPI — exposes API to gRPC handlers
         cloudAPI = new NodeCloudAPI(serviceManager, templateManager, config);
@@ -101,8 +101,13 @@ public class NodeBootstrap {
 
         // 7. Register with master
         nodeRpcClient.register(
-                config.nodeName(), config.host(),
-                config.maxMemoryMb(), config.maxServices(), config.authToken()
+                config.nodeName(), config.host(), config.grpcPort(),
+                config.maxMemoryMb(),
+                Runtime.getRuntime().availableProcessors(),
+                System.getProperty("os.name"),
+                System.getProperty("java.version"),
+                "unknown",
+                config.authToken()
         );
 
         // 8. Health monitor + heartbeat
@@ -122,7 +127,7 @@ public class NodeBootstrap {
 
         if (nodeRpcClient != null) {
             try {
-                nodeRpcClient.notifyShutdown(config.nodeName());
+                nodeRpcClient.notifyShutdown(config.nodeName(), "graceful shutdown");
             } catch (Exception e) {
                 log.warn("Failed to notify master: {}", e.getMessage());
             }

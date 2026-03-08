@@ -11,47 +11,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Tracks all players currently connected to the cloud network.
- * Updated by the gRPC {@code PlayerRpcService} when the proxy reports connect/disconnect/switch events.
- */
 public class MasterPlayerManager implements PlayerManager {
 
     private static final Logger log = LoggerFactory.getLogger(MasterPlayerManager.class);
 
     private final Map<UUID, CloudPlayerImpl> byUuid = new ConcurrentHashMap<>();
     private final Map<String, CloudPlayerImpl> byName = new ConcurrentHashMap<>();
-
     private final EventBus eventBus;
 
     public MasterPlayerManager(EventBus eventBus) {
         this.eventBus = eventBus;
     }
 
-    /**
-     * Registers a player that has just connected to the network.
-     *
-     * @param player the connecting player
-     */
-    public void registerConnect(CloudPlayerImpl player) {
-        byUuid.put(player.getUuid(), player);
-        byName.put(player.getName().toLowerCase(), player);
-        eventBus.publish(new PlayerConnectedEvent(player));
-        log.debug("Player connected: {} ({})", player.getName(), player.getUuid());
+    @Override
+    public void registerPlayer(CloudPlayer player) {
+        CloudPlayerImpl impl = (CloudPlayerImpl) player;
+        byUuid.put(impl.getUuid(), impl);
+        byName.put(impl.getName().toLowerCase(), impl);
+        eventBus.publish(new PlayerConnectedEvent(impl));
+        log.debug("Player connected: {} ({})", impl.getName(), impl.getUuid());
     }
 
-    /**
-     * Removes a player that has disconnected from the network.
-     *
-     * @param uuid the UUID of the disconnecting player
-     */
-    public void registerDisconnect(UUID uuid) {
-        CloudPlayerImpl player = byUuid.remove(uuid);
+    @Override
+    public void unregisterPlayer(UUID uniqueId) {
+        CloudPlayerImpl player = byUuid.remove(uniqueId);
         if (player != null) {
             byName.remove(player.getName().toLowerCase());
             eventBus.publish(new PlayerDisconnectedEvent(player));
@@ -59,25 +48,9 @@ public class MasterPlayerManager implements PlayerManager {
         }
     }
 
-    /**
-     * Updates the current service of a player that has switched servers.
-     *
-     * @param uuid           the UUID of the switching player
-     * @param newServiceName the name of the new service
-     */
-    public void registerSwitch(UUID uuid, String newServiceName) {
-        CloudPlayerImpl player = byUuid.get(uuid);
-        if (player != null) {
-            String oldService = player.getCurrentService();
-            player.setCurrentService(newServiceName);
-            eventBus.publish(new PlayerSwitchServiceEvent(player, oldService, newServiceName));
-            log.debug("Player '{}' switched: {} → {}", player.getName(), oldService, newServiceName);
-        }
-    }
-
     @Override
-    public Optional<CloudPlayer> getPlayer(UUID uuid) {
-        return Optional.ofNullable(byUuid.get(uuid));
+    public Optional<CloudPlayer> getPlayer(UUID uniqueId) {
+        return Optional.ofNullable(byUuid.get(uniqueId));
     }
 
     @Override
@@ -86,12 +59,27 @@ public class MasterPlayerManager implements PlayerManager {
     }
 
     @Override
-    public Collection<CloudPlayerImpl> allPlayers() {
-        return byUuid.values();
+    public Collection<CloudPlayer> getAllPlayers() {
+        return List.copyOf(byUuid.values());
     }
 
     @Override
-    public int onlineCount() {
+    public int getOnlineCount() {
         return byUuid.size();
+    }
+
+    /** Update a player's current service on server-switch. */
+    public void registerSwitch(UUID uniqueId, String newServiceName) {
+        CloudPlayerImpl player = byUuid.get(uniqueId);
+        if (player != null) {
+            String oldService = player.getCurrentService();
+            player.setCurrentService(newServiceName);
+            eventBus.publish(new PlayerSwitchServiceEvent(player, oldService, newServiceName));
+            log.debug("Player '{}' switched: {} → {}", player.getName(), oldService, newServiceName);
+        }
+    }
+
+    public Collection<CloudPlayerImpl> allPlayerImpls() {
+        return byUuid.values();
     }
 }
